@@ -7,16 +7,17 @@ restaurant-service:
 spring:
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: none
     open-in-view: false
     show-sql: false
-    database-platform: org.hibernate.dialect.PostgreSQL9Dialect
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.PostgreSQL9Dialect
-        ddl-auto: create-drop
+  #    database-platform: org.hibernate.dialect.PostgreSQL9Dialect
+  #    properties:
+  #      hibernate:
+  #        dialect: org.hibernate.dialect.PostgreSQL9Dialect
+  #        ddl-auto: create-drop
   datasource:
-    url: jdbc:postgresql://localhost:5432/?currentSchema=public&binaryTransfer=true&reWriteBatchedInserts=true
+    url: jdbc:postgresql://localhost:5432/postgres?currentSchema=order-platform
+    #    url: jdbc:postgresql://localhost:5432/?currentSchema=public&binaryTransfer=true&reWriteBatchedInserts=true
     username: postgres
     password: 1234
     driver-class-name: org.postgresql.Driver
