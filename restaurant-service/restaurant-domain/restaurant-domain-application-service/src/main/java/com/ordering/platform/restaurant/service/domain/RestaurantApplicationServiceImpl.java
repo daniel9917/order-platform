@@ -11,6 +11,7 @@ import com.ordering.platform.restaurant.service.domain.response.CreateRestaurant
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
 @Slf4j
@@ -26,6 +27,7 @@ public class RestaurantApplicationServiceImpl implements RestaurantApplicationSe
     private final RestaurantDomainService restaurantDomainService;
 
     @Override
+    @Transactional
     public CreateRestaurantResponse createRestaurant(CreateRestaurantCommand createRestaurantCommand) {
         Restaurant mappedRestaurant = restaurantDataMapper.createRestaurantCommandToRestaurant(createRestaurantCommand);
         restaurantDomainService.validateRestaurant(mappedRestaurant);

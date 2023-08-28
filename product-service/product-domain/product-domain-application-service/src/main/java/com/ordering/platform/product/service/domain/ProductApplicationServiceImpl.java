@@ -13,6 +13,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
+import java.util.UUID;
+
 @Slf4j
 @Service
 @Validated
@@ -37,13 +39,14 @@ public class ProductApplicationServiceImpl implements ProductApplicationService 
     @Transactional
     public CreateProductResponse createProduct(CreateProductCommand createProductCommand) {
         Product product = productDataMapper.createProductCommandToProduct(createProductCommand);
+        product.setId(UUID.randomUUID());
         productDomainService.validateProduct(product);
         Product persistedProduct = productRepository.createProduct(product);
         if (persistedProduct == null) {
             log.error("Could not create order with id: {}", persistedProduct.getId());
-            throw new ProductDomainException("Could not save order id: " + createProductCommand.getId());
+            throw new ProductDomainException("Could not save order Command Product: " + createProductCommand.toString());
         }
         log.info("Successfully created order with Id: " + product.getId());
-        return productDataMapper.productToCreateProductResponse(persistedProduct, createProductCommand.getId().toString());
+        return productDataMapper.productToCreateProductResponse(persistedProduct, "Successfully created Command Product: " + createProductCommand.toString());
     }
 }
