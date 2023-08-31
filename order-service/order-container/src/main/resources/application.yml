@@ -10,10 +10,9 @@ spring:
       ddl-auto: none
     open-in-view: false
     show-sql: false
-  #    database-platform: org.hibernate.dialect.PostgreSQL9Dialect
-  #    properties:
-  #      hibernate:
-  #        dialect: org.hibernate.dialect.PostgreSQL9Dialect
+    database-platform: org.hibernate.dialect.PostgreSQL9Dialect
+    properties:
+      hibernate: org.hibernate.dialect.PostgreSQL9Dialect
   #        ddl-auto: create-drop
   datasource:
     url: jdbc:postgresql://localhost:5432/postgres?currentSchema=order-platform

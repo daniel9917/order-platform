@@ -1,6 +1,6 @@
-package com.ordering.platform.product.service.dataaccess.repository;
+package com.ordering.platform.dataaccess.repository;
 
-import com.ordering.platform.product.service.dataaccess.entity.ProductEntity;
+import com.ordering.platform.dataaccess.entity.ProductEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

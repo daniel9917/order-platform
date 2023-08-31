@@ -1,6 +1,6 @@
-package com.ordering.platform.restaurant.service.dataaccess.repository;
+package com.ordering.platform.dataaccess.repository;
 
-import com.ordering.platform.restaurant.service.dataaccess.entity.RestaurantEntity;
+import com.ordering.platform.dataaccess.entity.RestaurantEntity;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

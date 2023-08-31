@@ -11,7 +11,6 @@ public class UserDataMapper {
     public User createUserCommandToUser (CreateUserCommand createUserCommand) {
         return
                 new User(
-                        createUserCommand.getId(),
                         createUserCommand.getFirstName(),
                         createUserCommand.getLastName(),
                         createUserCommand.getEmail(),
@@ -21,7 +20,7 @@ public class UserDataMapper {
     public CreateUserResponse userToCreateUserResponse(User user, String message) {
         return CreateUserResponse.builder()
                 .userId(user.getId())
-                .message(message)
+                .message("Successfully created user with Id: " + message)
                 .build();
     }
 }

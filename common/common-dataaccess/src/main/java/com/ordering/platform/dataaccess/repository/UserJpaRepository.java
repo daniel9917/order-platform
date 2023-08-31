@@ -1,6 +1,6 @@
-package com.ordering.platform.user.service.dataaccess.repository;
+package com.ordering.platform.dataaccess.repository;
 
-import com.ordering.platform.user.service.dataaccess.entity.UserEntity;
+import com.ordering.platform.dataaccess.entity.UserEntity;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

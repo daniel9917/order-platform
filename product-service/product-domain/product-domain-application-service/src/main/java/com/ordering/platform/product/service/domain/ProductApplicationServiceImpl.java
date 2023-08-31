@@ -39,7 +39,6 @@ public class ProductApplicationServiceImpl implements ProductApplicationService 
     @Transactional
     public CreateProductResponse createProduct(CreateProductCommand createProductCommand) {
         Product product = productDataMapper.createProductCommandToProduct(createProductCommand);
-        product.setId(UUID.randomUUID());
         productDomainService.validateProduct(product);
         Product persistedProduct = productRepository.createProduct(product);
         if (persistedProduct == null) {

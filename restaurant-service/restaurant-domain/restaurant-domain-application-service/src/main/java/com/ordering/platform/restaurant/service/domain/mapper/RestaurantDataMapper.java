@@ -11,7 +11,6 @@ public class RestaurantDataMapper {
     public Restaurant createRestaurantCommandToRestaurant (CreateRestaurantCommand createRestaurantCommand){
         return
                 new Restaurant(
-                        createRestaurantCommand.getId(),
                         createRestaurantCommand.getName(),
                         createRestaurantCommand.getAddress());
     }
@@ -19,7 +18,7 @@ public class RestaurantDataMapper {
     public CreateRestaurantResponse restaurantToCreateRestaurantResponse (Restaurant restaurant, String message) {
         return CreateRestaurantResponse.builder()
                 .restaurantId(restaurant.getId())
-                .message(message)
+                .message("Successfuly created restaurant with Id: " + message)
                 .build();
     }
 

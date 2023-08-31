@@ -3,8 +3,10 @@ package com.ordering.platform.order.service.domain;
 import com.ordering.platform.order.service.domain.entity.Order;
 import com.ordering.platform.order.service.domain.exception.OrderDomainException;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
 
 @Slf4j
+@Component
 public class OrderDomainServiceImpl implements OrderDomainService{
 
     @Override

@@ -10,18 +10,15 @@ public class Restaurant extends BaseEntity {
 
     private final String address;
 
-//    private final RestaurantDetail restaurantDetail;
-
-    public Restaurant(
-            UUID id,
-            String name,
-            String address
-//            RestaurantDetail restaurantDetail
-    ) {
+    public Restaurant(UUID id, String name, String address) {
         super.setId(id);
         this.name = name;
         this.address = address;
-//        this.restaurantDetail = restaurantDetail;
+    }
+
+    public Restaurant(String name, String address) {
+        this.name = name;
+        this.address = address;
     }
 
     public String getName() {

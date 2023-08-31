@@ -1,22 +1,25 @@
 package com.ordering.platform.order.service.domain.command;
 
-import com.ordering.platform.order.service.domain.entity.Dish;
 import com.ordering.platform.order.service.domain.entity.OrderStatus;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
+import lombok.*;
 
+import java.io.Serializable;
+import java.util.List;
 import java.util.UUID;
 
-@Getter
+@Data
 @Builder
+@ToString
 @AllArgsConstructor
-public class CreateOrderCommand {
+public class CreateOrderCommand implements Serializable {
 
     @NotNull
-    private final UUID id;
+    private final UUID restaurantId;
     @NotNull
-    private final OrderStatus orderStatus;
-    private final Dish dish;
+    private final UUID userId;
+    @NotNull
+    private final OrderStatus status;
+    @NotNull
+    private final List<CreateDishCommand> dishList;
 }

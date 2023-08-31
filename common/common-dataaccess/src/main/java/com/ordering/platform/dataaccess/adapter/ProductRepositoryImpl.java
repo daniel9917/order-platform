@@ -1,7 +1,7 @@
-package com.ordering.platform.product.service.dataaccess.adapter;
+package com.ordering.platform.dataaccess.adapter;
 
-import com.ordering.platform.product.service.dataaccess.mapper.ProductDataAccessMapper;
-import com.ordering.platform.product.service.dataaccess.repository.ProductJpaRepository;
+import com.ordering.platform.dataaccess.mapper.ProductDataAccessMapper;
+import com.ordering.platform.dataaccess.repository.ProductJpaRepository;
 import com.ordering.platform.product.service.domain.entity.Product;
 import com.ordering.platform.product.service.domain.ports.output.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;

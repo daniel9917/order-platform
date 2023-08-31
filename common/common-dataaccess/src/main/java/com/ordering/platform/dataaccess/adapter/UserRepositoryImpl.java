@@ -1,7 +1,7 @@
-package com.ordering.platform.user.service.dataaccess.adapter;
+package com.ordering.platform.dataaccess.adapter;
 
-import com.ordering.platform.user.service.dataaccess.mapper.UserDataAccessMapper;
-import com.ordering.platform.user.service.dataaccess.repository.UserJpaRepository;
+import com.ordering.platform.dataaccess.mapper.UserDataAccessMapper;
+import com.ordering.platform.dataaccess.repository.UserJpaRepository;
 import com.ordering.platform.user.service.domain.entity.User;
 import com.ordering.platform.user.service.domain.ports.output.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;

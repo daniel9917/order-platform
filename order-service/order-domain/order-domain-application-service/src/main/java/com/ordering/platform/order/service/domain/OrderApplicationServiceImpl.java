@@ -38,10 +38,10 @@ public class OrderApplicationServiceImpl implements OrderApplicationService {
         orderDomainService.validateOrder(order);
         Order persistedOrder = orderRepository.createOrder(order);
         if (persistedOrder == null) {
-            log.error("Could not create order with id: {}", createOrderCommand.getId());
-            throw new OrderDomainException("Could not save order id: " + createOrderCommand.getId());
+            log.error("Could not create order: {}", createOrderCommand);
+            throw new OrderDomainException("Could not save order: " + createOrderCommand);
         }
         log.info("Successfully created order with Id: " + order.getId());
-        return orderDataMapper.orderToCreateOrderResponse(persistedOrder, createOrderCommand.getId().toString());
+        return orderDataMapper.orderToCreateOrderResponse(persistedOrder, createOrderCommand.toString());
     }
 }

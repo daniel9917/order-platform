@@ -33,10 +33,10 @@ public class RestaurantApplicationServiceImpl implements RestaurantApplicationSe
         restaurantDomainService.validateRestaurant(mappedRestaurant);
         Restaurant persistedRestaurant = restaurantRepository.createRestaurant(mappedRestaurant);
         if (persistedRestaurant == null) {
-            log.error("Could not create restaurant with id: {}", createRestaurantCommand.getId());
-            throw new RestaurantDomainException("Could not save restaurant id: " + createRestaurantCommand.getId());
+            log.error("Could not create restaurant with id: {}", createRestaurantCommand);
+            throw new RestaurantDomainException("Could not save restaurant id: " + createRestaurantCommand);
         }
-        log.info("Successfully created restaurant with id: {}", createRestaurantCommand.getId());
-        return restaurantDataMapper.restaurantToCreateRestaurantResponse(persistedRestaurant, createRestaurantCommand.getId().toString());
+        log.info("Successfully created restaurant with id: {}", createRestaurantCommand);
+        return restaurantDataMapper.restaurantToCreateRestaurantResponse(persistedRestaurant, createRestaurantCommand.toString());
     }
 }

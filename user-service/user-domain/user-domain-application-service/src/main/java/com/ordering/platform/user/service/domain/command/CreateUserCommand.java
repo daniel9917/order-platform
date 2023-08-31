@@ -13,8 +13,6 @@ import java.util.UUID;
 public class CreateUserCommand {
 
     @NotNull
-    private UUID id;
-    @NotNull
     private String firstName;
     @NotNull
     private String lastName;

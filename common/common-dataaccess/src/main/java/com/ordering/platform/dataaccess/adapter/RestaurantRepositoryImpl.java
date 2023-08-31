@@ -1,8 +1,8 @@
-package com.ordering.platform.restaurant.service.dataaccess.adapter;
+package com.ordering.platform.dataaccess.adapter;
 
+import com.ordering.platform.dataaccess.mapper.RestaurantDataAccessMapper;
+import com.ordering.platform.dataaccess.repository.RestaurantJpaRepository;
 import com.ordering.platform.domain.entity.Restaurant;
-import com.ordering.platform.restaurant.service.dataaccess.mapper.RestaurantDataAccessMapper;
-import com.ordering.platform.restaurant.service.dataaccess.repository.RestaurantJpaRepository;
 import com.ordering.platform.restaurant.service.domain.ports.output.repository.RestaurantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

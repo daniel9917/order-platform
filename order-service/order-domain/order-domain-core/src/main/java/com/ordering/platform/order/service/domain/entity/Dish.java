@@ -7,13 +7,18 @@ import java.util.UUID;
 
 public class Dish extends BaseEntity {
     private final String name;
-    private final UUID restaurantId;
     private final int quantity;
-    private final List<Product> productList;
+    private final List<UUID> productList;
 
-    public Dish(String name, UUID restaurantId, int quantity, List<Product> productList) {
+    public Dish(UUID id, String name, int quantity, List<UUID> productList) {
+        this.setId(id);
         this.name = name;
-        this.restaurantId = restaurantId;
+        this.quantity = quantity;
+        this.productList = productList;
+    }
+
+    public Dish(String name, int quantity, List<UUID> productList) {
+        this.name = name;
         this.quantity = quantity;
         this.productList = productList;
     }
@@ -22,15 +27,11 @@ public class Dish extends BaseEntity {
         return name;
     }
 
-    public UUID getRestaurantId() {
-        return restaurantId;
-    }
-
     public int getQuantity() {
         return quantity;
     }
 
-    public List<Product> getProductList() {
+    public List<UUID> getProductList() {
         return productList;
     }
 }

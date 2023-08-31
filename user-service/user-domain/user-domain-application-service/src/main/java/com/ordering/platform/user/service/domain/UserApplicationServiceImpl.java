@@ -31,10 +31,10 @@ public class UserApplicationServiceImpl implements UserApplicationService {
         userDomainService.validateUser(mappedUser);
         User persistedUser = userRepository.createUser(mappedUser);
         if (persistedUser == null) {
-            log.error("Unable to create user with Id: {}", createUserCommand.getId());
-            throw new UserDomainException("Unable to create user with Id: " + createUserCommand.getId());
+            log.error("Unable to create user with Id: {}", createUserCommand);
+            throw new UserDomainException("Unable to create user with Id: " + createUserCommand);
         }
-        log.info("Successfully created user with id: {}", createUserCommand.getId());
+        log.info("Successfully created user with id: {}", createUserCommand);
         return userDataMapper.userToCreateUserResponse(persistedUser, persistedUser.getId().toString());
     }
 }

@@ -13,9 +13,6 @@ import java.util.UUID;
 public class CreateProductCommand {
 
     @NotNull
-    private final UUID id;
-
-    @NotNull
     private final String name;
 
     @NotNull

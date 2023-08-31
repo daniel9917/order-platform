@@ -1,88 +1,65 @@
-DROP SCHEMA IF EXISTS `order-platform`;
+DROP SCHEMA IF EXISTS order_platform CASCADE;
 
-CREATE SCHEMA `order-platform`;
+-- Create schema
+CREATE SCHEMA order_platform;
 
-use `order-platform`;
+-- Use schema
+SET search_path TO order_platform;
 
-SET FOREIGN_KEY_CHECKS = 0;
+-- Create user table
+CREATE TABLE users (
+    id UUID NOT NULL,
+    first_name VARCHAR(20) NOT NULL,
+    last_name VARCHAR(20) NOT NULL,
+    email VARCHAR(25) NOT NULL,
+    address VARCHAR(25) NOT NULL,
+    PRIMARY KEY (id)
+);
 
-CREATE TABLE `user` (
-    `id` VARCHAR(36) NOT NULL,
-    `first_name` VARCHAR(20) NOT NULL,
-    `last_name` VARCHAR(20) NOT NULL,
-    `email` VARCHAR(25) NOT NULL,
-    `address` VARCHAR(25) NOT NULL,
-    
-    PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+-- Create restaurant table
+CREATE TABLE restaurants (
+    id UUID NOT NULL,
+    name VARCHAR(20) NOT NULL,
+    address VARCHAR(20) NOT NULL,
+    PRIMARY KEY (id)
+);
 
-CREATE TABLE `restaurant` (
-    `id` VARCHAR(36) NOT NULL,
-    `name` VARCHAR(20) NOT NULL,
-    `address` VARCHAR(20) NOT NULL,
+-- Create order table
+CREATE TABLE orders (
+    id UUID NOT NULL,
+    status VARCHAR(10) NOT NULL,
+    user_id UUID NOT NULL,
+    restaurant_id UUID NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (restaurant_id) REFERENCES restaurant (id),
+    FOREIGN KEY (user_id) REFERENCES user (id) ON DELETE NO ACTION ON UPDATE NO ACTION
+);
 
-    PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+-- Create dish table
+CREATE TABLE dishes (
+    id UUID NOT NULL,
+    quantity INT NOT NULL,
+    name VARCHAR(20) NOT NULL,
+    order_id UUID NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (order_id) REFERENCES order_table (id)
+);
 
-CREATE TABLE `order` (
-    `id` VARCHAR(36) NOT NULL,
-    `status` VARCHAR(10) NOT NULL,
-    `user_id` VARCHAR(36) NOT NULL,
-    `restaurant_id` VARCHAR(36) NOT NULL,
+-- Create product table
+CREATE TABLE products (
+    id UUID NOT NULL,
+    name VARCHAR(20) NOT NULL,
+    PRIMARY KEY (id)
+);
 
-    PRIMARY KEY (`id`),
+-- Create dish_product table
+CREATE TABLE dish_product (
+    product_id UUID NOT NULL,
+    dish_id UUID NOT NULL,
+    PRIMARY KEY (product_id, dish_id),
+    FOREIGN KEY (product_id) REFERENCES product (id) ON DELETE NO ACTION ON UPDATE NO ACTION,
+    FOREIGN KEY (dish_id) REFERENCES dish (id) ON DELETE NO ACTION ON UPDATE NO ACTION
+);
 
-    KEY `FK_RESTAURANT_idx` (`restaurant_id`),
-    CONSTRAINT `FK_RESTAURANT`
-    FOREIGN KEY (`restaurant_id`)
-    REFERENCES `restaurant` (`id`),
-
-    KEY `FK_USER_idx` (`user_id`),
-    CONSTRAINT `FK_USER`
-    FOREIGN KEY (`user_id`)
-    REFERENCES `user` (`id`)
-
-    ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-CREATE TABLE `dish` (
-    `id` VARCHAR(36) NOT NULL,
-    `quantity` INT NOT NULL,
-    `name` VARCHAR(20) NOT NULL,
-    `order_id` VARCHAR(36) NOT NULL,
-
-    PRIMARY KEY (`id`),
-
-    KEY `FK_ORDER_idx` (`order_id`),
-    CONSTRAINT `FK_ORDER`
-    FOREIGN KEY (`order_id`)
-    REFERENCES `order` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-CREATE TABLE `product` (
-    `id` VARCHAR(36) NOT NULL,
-    `name` VARCHAR(20) NOT NULL,
-
-    PRIMARY KEY (`id`)
-)ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-CREATE TABLE `dish_product` (
-    `product_id` VARCHAR(36) NOT NULL,
-    `dish_id` VARCHAR(36) NOT NULL,
-
-    PRIMARY KEY (`product_id`, `dish_id`),
-
-    KEY `FK_DISH_idx` (`dish_id`),
-    KEY `FK_PRODUCT_idx` (`product_id`),
-
-
-    CONSTRAINT `FK_PRODUCT` FOREIGN KEY (`product_id`)
-    REFERENCES `product` (`id`)
-    ON DELETE NO ACTION ON UPDATE NO ACTION,
-
-    CONSTRAINT `FK_DISH` FOREIGN KEY (`dish_id`)
-    REFERENCES `dish` (`id`)
-    ON DELETE NO ACTION ON UPDATE NO ACTION
-)ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-SET FOREIGN_KEY_CHECKS = 1;
+-- Reset search path
+RESET search_path;
