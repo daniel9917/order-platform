@@ -5,18 +5,20 @@ import com.ordering.platform.restaurant.service.domain.command.CreateRestaurantC
 import com.ordering.platform.restaurant.service.domain.response.CreateRestaurantResponse;
 import org.springframework.stereotype.Component;
 
+import java.util.UUID;
+
 @Component
 public class RestaurantDataMapper {
 
     public Restaurant createRestaurantCommandToRestaurant (CreateRestaurantCommand createRestaurantCommand){
         return
                 new Restaurant(
-                        createRestaurantCommand.getName(),
-                        createRestaurantCommand.getAddress());
+                        createRestaurantCommand.name(),
+                        createRestaurantCommand.address());
     }
 
     public CreateRestaurantResponse restaurantToCreateRestaurantResponse (Restaurant restaurant, String message) {
-        return CreateRestaurantResponse.builder()
+        return new CreateRestaurantResponse.Builder()
                 .restaurantId(restaurant.getId())
                 .message("Successfuly created restaurant with Id: " + message)
                 .build();

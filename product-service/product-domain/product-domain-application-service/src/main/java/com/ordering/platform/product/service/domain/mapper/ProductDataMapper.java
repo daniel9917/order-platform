@@ -11,8 +11,8 @@ public class ProductDataMapper {
     public Product createProductCommandToProduct (CreateProductCommand createProductCommand) {
         return
                 new Product(
-                        createProductCommand.getName(),
-                        ProductType.valueOf(createProductCommand.getType()));
+                        createProductCommand.name(),
+                        ProductType.valueOf(createProductCommand.type()));
     }
 
     public CreateProductResponse productToCreateProductResponse (Product product, String message){

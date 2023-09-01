@@ -1,18 +1,25 @@
 package com.ordering.platform.restaurant.service.domain.response;
 
-import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-
 import java.util.UUID;
 
-@Getter
-@Builder
-@AllArgsConstructor
-public class CreateRestaurantResponse {
-    @NotNull
-    private final UUID restaurantId;
-    @NotNull
-    private final String message;
+public record CreateRestaurantResponse (UUID restaurantId, String message){
+
+    public static final class Builder {
+        private UUID restaurantId;
+        private String message;
+
+        public Builder restaurantId (UUID restaurantId) {
+            this.restaurantId = restaurantId;
+            return this;
+        }
+
+        public Builder message (String message) {
+            this.message = message;
+            return this;
+        }
+
+        public CreateRestaurantResponse build () {
+            return new CreateRestaurantResponse (restaurantId, message);
+        }
+    }
 }

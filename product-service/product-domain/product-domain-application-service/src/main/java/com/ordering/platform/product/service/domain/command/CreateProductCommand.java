@@ -1,22 +1,26 @@
 package com.ordering.platform.product.service.domain.command;
 
-import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
+public record CreateProductCommand (String name, String type) {
 
-import java.util.UUID;
+    public static final class Builder {
 
-@Getter
-@Builder
-@AllArgsConstructor
-public class CreateProductCommand {
+        private String name;
+        private String type;
 
-    @NotNull
-    private final String name;
+        public Builder name (String name) {
+            this.name = name;
+            return this;
+        }
 
-    @NotNull
-    private final String type;
+        public Builder type (String type) {
+            this.type = type;
+            return this;
+        }
+
+        public CreateProductCommand build () {
+            return new CreateProductCommand(name, type);
+        }
+    }
 
 
 }

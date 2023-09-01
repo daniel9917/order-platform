@@ -1,19 +1,23 @@
 package com.ordering.platform.restaurant.service.domain.command;
 
-import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
+public record CreateRestaurantCommand (String name, String address){
 
-import java.util.UUID;
+    public static final class Builder {
+        private String name;
+        private String address;
 
-@Getter
-@Builder
-@AllArgsConstructor
-public class CreateRestaurantCommand {
+        public Builder name (String name) {
+            this.name = name;
+            return this;
+        }
 
-    @NotNull
-    private final String name;
-    @NotNull
-    private final String address;
+        public Builder address (String address) {
+            this.address = address;
+            return this;
+        }
+
+        public CreateRestaurantCommand build () {
+            return new CreateRestaurantCommand(name, address);
+        }
+    }
 }

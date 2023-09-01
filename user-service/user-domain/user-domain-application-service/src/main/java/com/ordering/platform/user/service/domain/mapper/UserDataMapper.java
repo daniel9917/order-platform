@@ -11,14 +11,14 @@ public class UserDataMapper {
     public User createUserCommandToUser (CreateUserCommand createUserCommand) {
         return
                 new User(
-                        createUserCommand.getFirstName(),
-                        createUserCommand.getLastName(),
-                        createUserCommand.getEmail(),
-                        createUserCommand.getAddress());
+                        createUserCommand.firstName(),
+                        createUserCommand.lastName(),
+                        createUserCommand.email(),
+                        createUserCommand.address());
     }
 
     public CreateUserResponse userToCreateUserResponse(User user, String message) {
-        return CreateUserResponse.builder()
+        return new CreateUserResponse.Builder()
                 .userId(user.getId())
                 .message("Successfully created user with Id: " + message)
                 .build();

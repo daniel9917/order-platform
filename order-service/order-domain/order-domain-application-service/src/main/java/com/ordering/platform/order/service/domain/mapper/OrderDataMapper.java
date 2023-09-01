@@ -11,19 +11,19 @@ public class OrderDataMapper {
     public Order createOrderCommandToOrder (CreateOrderCommand createOrderCommand) {
         return
                 new Order(
-                        createOrderCommand.getDishList()
+                        createOrderCommand.dishList()
                                 .stream()
                                 .map(
                                         dish ->
                                                 new Dish(
-                                                        dish.getName(),
-                                                        dish.getQuantity(),
-                                                        dish.getProductList()
+                                                        dish.name(),
+                                                        dish.quantity(),
+                                                        dish.productList()
                                                 ))
                                 .toList(),
-                        createOrderCommand.getStatus(),
-                        createOrderCommand.getRestaurantId(),
-                        createOrderCommand.getUserId());
+                        createOrderCommand.status(),
+                        createOrderCommand.restaurantId(),
+                        createOrderCommand.userId());
     }
 
     public CreateOrderResponse orderToCreateOrderResponse(Order order, String message){

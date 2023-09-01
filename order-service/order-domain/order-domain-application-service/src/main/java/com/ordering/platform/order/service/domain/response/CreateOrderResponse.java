@@ -1,19 +1,22 @@
 package com.ordering.platform.order.service.domain.response;
 
-import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-
 import java.util.UUID;
 
-@Getter
-@Builder
-@AllArgsConstructor
-public class CreateOrderResponse {
-    @NotNull
-    private final UUID orderId;
+public record CreateOrderResponse(UUID orderId, String message) {
+    public static final class Builder {
+        UUID orderId;
+        String message;
+        public Builder orderId (UUID orderId){
+            this.orderId = orderId;
+            return this;
+        }
+        public Builder message (String message){
+            this.message = message;
+            return this;
+        }
 
-    @NotNull
-    private final String message;
+        public CreateOrderResponse build(){
+            return new CreateOrderResponse(orderId, message);
+        }
+    }
 }

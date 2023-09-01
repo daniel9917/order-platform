@@ -1,23 +1,35 @@
 package com.ordering.platform.user.service.domain.command;
 
-import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
+public record CreateUserCommand (String firstName, String lastName, String email, String address) {
 
-import java.util.UUID;
+     public static final class Builder {
+         private String firstName;
+         private String lastName;
+         private String email;
+         private String address;
 
-@Getter
-@Builder
-@AllArgsConstructor
-public class CreateUserCommand {
+         public Builder firstName (String firstName){
+             this.firstName = firstName;
+             return this;
+         }
 
-    @NotNull
-    private String firstName;
-    @NotNull
-    private String lastName;
-    @NotNull
-    private String email;
-    @NotNull
-    private String address;
+         public Builder lastName (String lastName){
+             this.lastName = lastName;
+             return this;
+         }
+
+         public Builder email (String email){
+             this.email = email;
+             return this;
+         }
+
+         public Builder address (String address){
+             this.address = address;
+             return this;
+         }
+
+         public CreateUserCommand build (){
+             return new CreateUserCommand(firstName, lastName, email, address);
+         }
+     }
 }

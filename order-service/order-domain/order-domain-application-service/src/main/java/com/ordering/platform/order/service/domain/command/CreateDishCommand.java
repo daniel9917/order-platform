@@ -1,23 +1,31 @@
 package com.ordering.platform.order.service.domain.command;
 
-import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.ToString;
-
 import java.util.List;
 import java.util.UUID;
 
-@Getter
-@Builder
-@ToString
-@AllArgsConstructor
-public class CreateDishCommand {
-    @NotNull
-    private final String name;
-    @NotNull
-    private final int quantity;
-    @NotNull
-    private final List<UUID> productList;
+public record CreateDishCommand(String name, int quantity, List<UUID> productList) {
+    public static final class Builder {
+        private String name;
+        private int quantity;
+        private List<UUID> productList;
+
+        public Builder name (String name) {
+            this.name = name;
+            return this;
+        }
+
+        public Builder status (int quantity) {
+            this.quantity = quantity;
+            return this;
+        }
+
+        public Builder productList (List<UUID> productList) {
+            this.productList = productList;
+            return this;
+        }
+
+        public CreateDishCommand build () {
+            return new CreateDishCommand(this.name, this.quantity, this.productList);
+        }
+    }
 }
