@@ -1,10 +1,5 @@
 package com.ordering.platform.user.service.domain.response;
 
-import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-
 import java.util.UUID;
 
 public record CreateUserResponse (UUID userId, String message){
