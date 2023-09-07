@@ -1,0 +1,66 @@
+{
+  "namespace": "com.ordering.platform.kafka.order.avro.model",
+  "type": "record",
+  "name": "RestaurantApprovalRequestAvroModel",
+  "fields": [
+    {
+      "name": "id",
+      "type": {
+        "type": "string",
+        "logicalType": "uuid"
+      }
+    },
+//    {
+//      "name": "sagaId",
+//      "type": {
+//        "type": "string"
+//      }
+//    },
+    {
+      "name": "restaurantId",
+      "type": {
+        "type": "string"
+      }
+    },
+    {
+      "name": "orderId",
+      "type": {
+        "type": "string"
+      }
+    },
+    {
+      "name": "orderStatus",
+      "type": {
+        "type": "enum",
+        "name": "OrderStatus",
+        "symbols": ["PROCESSING", "CREATED", "COOKED"]
+      }
+    },
+    {
+      "name": "products",
+      "type": {
+        "type": "array",
+        "items": {
+          "type" : "string",
+          "logicalType": "uuid"
+        }
+      }
+    },
+//    {
+//      "name": "price",
+//      "type": {
+//        "type": "bytes",
+//        "logicalType": "decimal",
+//        "precision": 10,
+//        "scale": 2
+//      }
+//    },
+    {
+      "name": "createdAt",
+      "type": {
+        "type": "long",
+        "logicalType": "timestamp-millis"
+      }
+    }
+  ]
+}
