@@ -14,22 +14,22 @@ import org.apache.avro.message.SchemaStore;
 
 @org.apache.avro.specific.AvroGenerated
 public class RestaurantApprovalRequestAvroModel extends org.apache.avro.specific.SpecificRecordBase implements org.apache.avro.specific.SpecificRecord {
-  private static final long serialVersionUID = -673847318594258116L;
+  private static final long serialVersionUID = -293563337234218694L;
 
 
-  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"RestaurantApprovalRequestAvroModel\",\"namespace\":\"com.ordering.platform.kafka.order.avro.model\",\"fields\":[{\"name\":\"id\",\"type\":{\"type\":\"string\",\"logicalType\":\"uuid\"}},{\"name\":\"restaurantId\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}},{\"name\":\"orderId\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}},{\"name\":\"orderStatus\",\"type\":{\"type\":\"enum\",\"name\":\"OrderStatus\",\"symbols\":[\"PROCESSING\",\"CREATED\",\"COOKED\"]}},{\"name\":\"products\",\"type\":{\"type\":\"array\",\"items\":{\"type\":\"string\",\"logicalType\":\"uuid\"}}},{\"name\":\"createdAt\",\"type\":{\"type\":\"long\",\"logicalType\":\"timestamp-millis\"}}]}");
+  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"RestaurantApprovalRequestAvroModel\",\"namespace\":\"com.ordering.platform.kafka.order.avro.model\",\"fields\":[{\"name\":\"id\",\"type\":{\"type\":\"string\",\"logicalType\":\"uuid\"}},{\"name\":\"restaurantId\",\"type\":{\"type\":\"string\",\"logicalType\":\"uuid\"}},{\"name\":\"userId\",\"type\":{\"type\":\"string\",\"logicalType\":\"uuid\"}},{\"name\":\"orderStatus\",\"type\":{\"type\":\"enum\",\"name\":\"OrderStatus\",\"symbols\":[\"PROCESSING\",\"CREATED\",\"COOKED\"]}}]}");
   public static org.apache.avro.Schema getClassSchema() { return SCHEMA$; }
 
   private static final SpecificData MODEL$ = new SpecificData();
   static {
-    MODEL$.addLogicalTypeConversion(new org.apache.avro.data.TimeConversions.TimestampMillisConversion());
+    MODEL$.addLogicalTypeConversion(new org.apache.avro.Conversions.UUIDConversion());
   }
 
   private static final BinaryMessageEncoder<RestaurantApprovalRequestAvroModel> ENCODER =
-      new BinaryMessageEncoder<RestaurantApprovalRequestAvroModel>(MODEL$, SCHEMA$);
+      new BinaryMessageEncoder<>(MODEL$, SCHEMA$);
 
   private static final BinaryMessageDecoder<RestaurantApprovalRequestAvroModel> DECODER =
-      new BinaryMessageDecoder<RestaurantApprovalRequestAvroModel>(MODEL$, SCHEMA$);
+      new BinaryMessageDecoder<>(MODEL$, SCHEMA$);
 
   /**
    * Return the BinaryMessageEncoder instance used by this class.
@@ -53,7 +53,7 @@ public class RestaurantApprovalRequestAvroModel extends org.apache.avro.specific
    * @return a BinaryMessageDecoder instance for this class backed by the given SchemaStore
    */
   public static BinaryMessageDecoder<RestaurantApprovalRequestAvroModel> createDecoder(SchemaStore resolver) {
-    return new BinaryMessageDecoder<RestaurantApprovalRequestAvroModel>(MODEL$, SCHEMA$, resolver);
+    return new BinaryMessageDecoder<>(MODEL$, SCHEMA$, resolver);
   }
 
   /**
@@ -76,12 +76,10 @@ public class RestaurantApprovalRequestAvroModel extends org.apache.avro.specific
     return DECODER.decode(b);
   }
 
-  private java.lang.String id;
-  private java.lang.String restaurantId;
-  private java.lang.String orderId;
+  private java.util.UUID id;
+  private java.util.UUID restaurantId;
+  private java.util.UUID userId;
   private com.ordering.platform.kafka.order.avro.model.OrderStatus orderStatus;
-  private java.util.List<java.lang.String> products;
-  private java.time.Instant createdAt;
 
   /**
    * Default constructor.  Note that this does not initialize fields
@@ -94,43 +92,40 @@ public class RestaurantApprovalRequestAvroModel extends org.apache.avro.specific
    * All-args constructor.
    * @param id The new value for id
    * @param restaurantId The new value for restaurantId
-   * @param orderId The new value for orderId
+   * @param userId The new value for userId
    * @param orderStatus The new value for orderStatus
-   * @param products The new value for products
-   * @param createdAt The new value for createdAt
    */
-  public RestaurantApprovalRequestAvroModel(java.lang.String id, java.lang.String restaurantId, java.lang.String orderId, com.ordering.platform.kafka.order.avro.model.OrderStatus orderStatus, java.util.List<java.lang.String> products, java.time.Instant createdAt) {
+  public RestaurantApprovalRequestAvroModel(java.util.UUID id, java.util.UUID restaurantId, java.util.UUID userId, com.ordering.platform.kafka.order.avro.model.OrderStatus orderStatus) {
     this.id = id;
     this.restaurantId = restaurantId;
-    this.orderId = orderId;
+    this.userId = userId;
     this.orderStatus = orderStatus;
-    this.products = products;
-    this.createdAt = createdAt.truncatedTo(java.time.temporal.ChronoUnit.MILLIS);
   }
 
+  @Override
   public org.apache.avro.specific.SpecificData getSpecificData() { return MODEL$; }
+
+  @Override
   public org.apache.avro.Schema getSchema() { return SCHEMA$; }
+
   // Used by DatumWriter.  Applications should not call.
+  @Override
   public java.lang.Object get(int field$) {
     switch (field$) {
     case 0: return id;
     case 1: return restaurantId;
-    case 2: return orderId;
+    case 2: return userId;
     case 3: return orderStatus;
-    case 4: return products;
-    case 5: return createdAt;
     default: throw new IndexOutOfBoundsException("Invalid index: " + field$);
     }
   }
 
   private static final org.apache.avro.Conversion<?>[] conversions =
       new org.apache.avro.Conversion<?>[] {
+      new org.apache.avro.Conversions.UUIDConversion(),
+      new org.apache.avro.Conversions.UUIDConversion(),
+      new org.apache.avro.Conversions.UUIDConversion(),
       null,
-      null,
-      null,
-      null,
-      null,
-      new org.apache.avro.data.TimeConversions.TimestampMillisConversion(),
       null
   };
 
@@ -140,15 +135,14 @@ public class RestaurantApprovalRequestAvroModel extends org.apache.avro.specific
   }
 
   // Used by DatumReader.  Applications should not call.
+  @Override
   @SuppressWarnings(value="unchecked")
   public void put(int field$, java.lang.Object value$) {
     switch (field$) {
-    case 0: id = value$ != null ? value$.toString() : null; break;
-    case 1: restaurantId = value$ != null ? value$.toString() : null; break;
-    case 2: orderId = value$ != null ? value$.toString() : null; break;
+    case 0: id = (java.util.UUID)value$; break;
+    case 1: restaurantId = (java.util.UUID)value$; break;
+    case 2: userId = (java.util.UUID)value$; break;
     case 3: orderStatus = (com.ordering.platform.kafka.order.avro.model.OrderStatus)value$; break;
-    case 4: products = (java.util.List<java.lang.String>)value$; break;
-    case 5: createdAt = (java.time.Instant)value$; break;
     default: throw new IndexOutOfBoundsException("Invalid index: " + field$);
     }
   }
@@ -157,7 +151,7 @@ public class RestaurantApprovalRequestAvroModel extends org.apache.avro.specific
    * Gets the value of the 'id' field.
    * @return The value of the 'id' field.
    */
-  public java.lang.String getId() {
+  public java.util.UUID getId() {
     return id;
   }
 
@@ -166,7 +160,7 @@ public class RestaurantApprovalRequestAvroModel extends org.apache.avro.specific
    * Sets the value of the 'id' field.
    * @param value the value to set.
    */
-  public void setId(java.lang.String value) {
+  public void setId(java.util.UUID value) {
     this.id = value;
   }
 
@@ -174,7 +168,7 @@ public class RestaurantApprovalRequestAvroModel extends org.apache.avro.specific
    * Gets the value of the 'restaurantId' field.
    * @return The value of the 'restaurantId' field.
    */
-  public java.lang.String getRestaurantId() {
+  public java.util.UUID getRestaurantId() {
     return restaurantId;
   }
 
@@ -183,25 +177,25 @@ public class RestaurantApprovalRequestAvroModel extends org.apache.avro.specific
    * Sets the value of the 'restaurantId' field.
    * @param value the value to set.
    */
-  public void setRestaurantId(java.lang.String value) {
+  public void setRestaurantId(java.util.UUID value) {
     this.restaurantId = value;
   }
 
   /**
-   * Gets the value of the 'orderId' field.
-   * @return The value of the 'orderId' field.
+   * Gets the value of the 'userId' field.
+   * @return The value of the 'userId' field.
    */
-  public java.lang.String getOrderId() {
-    return orderId;
+  public java.util.UUID getUserId() {
+    return userId;
   }
 
 
   /**
-   * Sets the value of the 'orderId' field.
+   * Sets the value of the 'userId' field.
    * @param value the value to set.
    */
-  public void setOrderId(java.lang.String value) {
-    this.orderId = value;
+  public void setUserId(java.util.UUID value) {
+    this.userId = value;
   }
 
   /**
@@ -219,40 +213,6 @@ public class RestaurantApprovalRequestAvroModel extends org.apache.avro.specific
    */
   public void setOrderStatus(com.ordering.platform.kafka.order.avro.model.OrderStatus value) {
     this.orderStatus = value;
-  }
-
-  /**
-   * Gets the value of the 'products' field.
-   * @return The value of the 'products' field.
-   */
-  public java.util.List<java.lang.String> getProducts() {
-    return products;
-  }
-
-
-  /**
-   * Sets the value of the 'products' field.
-   * @param value the value to set.
-   */
-  public void setProducts(java.util.List<java.lang.String> value) {
-    this.products = value;
-  }
-
-  /**
-   * Gets the value of the 'createdAt' field.
-   * @return The value of the 'createdAt' field.
-   */
-  public java.time.Instant getCreatedAt() {
-    return createdAt;
-  }
-
-
-  /**
-   * Sets the value of the 'createdAt' field.
-   * @param value the value to set.
-   */
-  public void setCreatedAt(java.time.Instant value) {
-    this.createdAt = value.truncatedTo(java.time.temporal.ChronoUnit.MILLIS);
   }
 
   /**
@@ -296,12 +256,10 @@ public class RestaurantApprovalRequestAvroModel extends org.apache.avro.specific
   public static class Builder extends org.apache.avro.specific.SpecificRecordBuilderBase<RestaurantApprovalRequestAvroModel>
     implements org.apache.avro.data.RecordBuilder<RestaurantApprovalRequestAvroModel> {
 
-    private java.lang.String id;
-    private java.lang.String restaurantId;
-    private java.lang.String orderId;
+    private java.util.UUID id;
+    private java.util.UUID restaurantId;
+    private java.util.UUID userId;
     private com.ordering.platform.kafka.order.avro.model.OrderStatus orderStatus;
-    private java.util.List<java.lang.String> products;
-    private java.time.Instant createdAt;
 
     /** Creates a new Builder */
     private Builder() {
@@ -322,21 +280,13 @@ public class RestaurantApprovalRequestAvroModel extends org.apache.avro.specific
         this.restaurantId = data().deepCopy(fields()[1].schema(), other.restaurantId);
         fieldSetFlags()[1] = other.fieldSetFlags()[1];
       }
-      if (isValidValue(fields()[2], other.orderId)) {
-        this.orderId = data().deepCopy(fields()[2].schema(), other.orderId);
+      if (isValidValue(fields()[2], other.userId)) {
+        this.userId = data().deepCopy(fields()[2].schema(), other.userId);
         fieldSetFlags()[2] = other.fieldSetFlags()[2];
       }
       if (isValidValue(fields()[3], other.orderStatus)) {
         this.orderStatus = data().deepCopy(fields()[3].schema(), other.orderStatus);
         fieldSetFlags()[3] = other.fieldSetFlags()[3];
-      }
-      if (isValidValue(fields()[4], other.products)) {
-        this.products = data().deepCopy(fields()[4].schema(), other.products);
-        fieldSetFlags()[4] = other.fieldSetFlags()[4];
-      }
-      if (isValidValue(fields()[5], other.createdAt)) {
-        this.createdAt = data().deepCopy(fields()[5].schema(), other.createdAt);
-        fieldSetFlags()[5] = other.fieldSetFlags()[5];
       }
     }
 
@@ -354,21 +304,13 @@ public class RestaurantApprovalRequestAvroModel extends org.apache.avro.specific
         this.restaurantId = data().deepCopy(fields()[1].schema(), other.restaurantId);
         fieldSetFlags()[1] = true;
       }
-      if (isValidValue(fields()[2], other.orderId)) {
-        this.orderId = data().deepCopy(fields()[2].schema(), other.orderId);
+      if (isValidValue(fields()[2], other.userId)) {
+        this.userId = data().deepCopy(fields()[2].schema(), other.userId);
         fieldSetFlags()[2] = true;
       }
       if (isValidValue(fields()[3], other.orderStatus)) {
         this.orderStatus = data().deepCopy(fields()[3].schema(), other.orderStatus);
         fieldSetFlags()[3] = true;
-      }
-      if (isValidValue(fields()[4], other.products)) {
-        this.products = data().deepCopy(fields()[4].schema(), other.products);
-        fieldSetFlags()[4] = true;
-      }
-      if (isValidValue(fields()[5], other.createdAt)) {
-        this.createdAt = data().deepCopy(fields()[5].schema(), other.createdAt);
-        fieldSetFlags()[5] = true;
       }
     }
 
@@ -376,7 +318,7 @@ public class RestaurantApprovalRequestAvroModel extends org.apache.avro.specific
       * Gets the value of the 'id' field.
       * @return The value.
       */
-    public java.lang.String getId() {
+    public java.util.UUID getId() {
       return id;
     }
 
@@ -386,7 +328,7 @@ public class RestaurantApprovalRequestAvroModel extends org.apache.avro.specific
       * @param value The value of 'id'.
       * @return This builder.
       */
-    public com.ordering.platform.kafka.order.avro.model.RestaurantApprovalRequestAvroModel.Builder setId(java.lang.String value) {
+    public com.ordering.platform.kafka.order.avro.model.RestaurantApprovalRequestAvroModel.Builder setId(java.util.UUID value) {
       validate(fields()[0], value);
       this.id = value;
       fieldSetFlags()[0] = true;
@@ -416,7 +358,7 @@ public class RestaurantApprovalRequestAvroModel extends org.apache.avro.specific
       * Gets the value of the 'restaurantId' field.
       * @return The value.
       */
-    public java.lang.String getRestaurantId() {
+    public java.util.UUID getRestaurantId() {
       return restaurantId;
     }
 
@@ -426,7 +368,7 @@ public class RestaurantApprovalRequestAvroModel extends org.apache.avro.specific
       * @param value The value of 'restaurantId'.
       * @return This builder.
       */
-    public com.ordering.platform.kafka.order.avro.model.RestaurantApprovalRequestAvroModel.Builder setRestaurantId(java.lang.String value) {
+    public com.ordering.platform.kafka.order.avro.model.RestaurantApprovalRequestAvroModel.Builder setRestaurantId(java.util.UUID value) {
       validate(fields()[1], value);
       this.restaurantId = value;
       fieldSetFlags()[1] = true;
@@ -453,41 +395,41 @@ public class RestaurantApprovalRequestAvroModel extends org.apache.avro.specific
     }
 
     /**
-      * Gets the value of the 'orderId' field.
+      * Gets the value of the 'userId' field.
       * @return The value.
       */
-    public java.lang.String getOrderId() {
-      return orderId;
+    public java.util.UUID getUserId() {
+      return userId;
     }
 
 
     /**
-      * Sets the value of the 'orderId' field.
-      * @param value The value of 'orderId'.
+      * Sets the value of the 'userId' field.
+      * @param value The value of 'userId'.
       * @return This builder.
       */
-    public com.ordering.platform.kafka.order.avro.model.RestaurantApprovalRequestAvroModel.Builder setOrderId(java.lang.String value) {
+    public com.ordering.platform.kafka.order.avro.model.RestaurantApprovalRequestAvroModel.Builder setUserId(java.util.UUID value) {
       validate(fields()[2], value);
-      this.orderId = value;
+      this.userId = value;
       fieldSetFlags()[2] = true;
       return this;
     }
 
     /**
-      * Checks whether the 'orderId' field has been set.
-      * @return True if the 'orderId' field has been set, false otherwise.
+      * Checks whether the 'userId' field has been set.
+      * @return True if the 'userId' field has been set, false otherwise.
       */
-    public boolean hasOrderId() {
+    public boolean hasUserId() {
       return fieldSetFlags()[2];
     }
 
 
     /**
-      * Clears the value of the 'orderId' field.
+      * Clears the value of the 'userId' field.
       * @return This builder.
       */
-    public com.ordering.platform.kafka.order.avro.model.RestaurantApprovalRequestAvroModel.Builder clearOrderId() {
-      orderId = null;
+    public com.ordering.platform.kafka.order.avro.model.RestaurantApprovalRequestAvroModel.Builder clearUserId() {
+      userId = null;
       fieldSetFlags()[2] = false;
       return this;
     }
@@ -532,96 +474,15 @@ public class RestaurantApprovalRequestAvroModel extends org.apache.avro.specific
       return this;
     }
 
-    /**
-      * Gets the value of the 'products' field.
-      * @return The value.
-      */
-    public java.util.List<java.lang.String> getProducts() {
-      return products;
-    }
-
-
-    /**
-      * Sets the value of the 'products' field.
-      * @param value The value of 'products'.
-      * @return This builder.
-      */
-    public com.ordering.platform.kafka.order.avro.model.RestaurantApprovalRequestAvroModel.Builder setProducts(java.util.List<java.lang.String> value) {
-      validate(fields()[4], value);
-      this.products = value;
-      fieldSetFlags()[4] = true;
-      return this;
-    }
-
-    /**
-      * Checks whether the 'products' field has been set.
-      * @return True if the 'products' field has been set, false otherwise.
-      */
-    public boolean hasProducts() {
-      return fieldSetFlags()[4];
-    }
-
-
-    /**
-      * Clears the value of the 'products' field.
-      * @return This builder.
-      */
-    public com.ordering.platform.kafka.order.avro.model.RestaurantApprovalRequestAvroModel.Builder clearProducts() {
-      products = null;
-      fieldSetFlags()[4] = false;
-      return this;
-    }
-
-    /**
-      * Gets the value of the 'createdAt' field.
-      * @return The value.
-      */
-    public java.time.Instant getCreatedAt() {
-      return createdAt;
-    }
-
-
-    /**
-      * Sets the value of the 'createdAt' field.
-      * @param value The value of 'createdAt'.
-      * @return This builder.
-      */
-    public com.ordering.platform.kafka.order.avro.model.RestaurantApprovalRequestAvroModel.Builder setCreatedAt(java.time.Instant value) {
-      validate(fields()[5], value);
-      this.createdAt = value.truncatedTo(java.time.temporal.ChronoUnit.MILLIS);
-      fieldSetFlags()[5] = true;
-      return this;
-    }
-
-    /**
-      * Checks whether the 'createdAt' field has been set.
-      * @return True if the 'createdAt' field has been set, false otherwise.
-      */
-    public boolean hasCreatedAt() {
-      return fieldSetFlags()[5];
-    }
-
-
-    /**
-      * Clears the value of the 'createdAt' field.
-      * @return This builder.
-      */
-    public com.ordering.platform.kafka.order.avro.model.RestaurantApprovalRequestAvroModel.Builder clearCreatedAt() {
-      fieldSetFlags()[5] = false;
-      return this;
-    }
-
     @Override
     @SuppressWarnings("unchecked")
     public RestaurantApprovalRequestAvroModel build() {
       try {
         RestaurantApprovalRequestAvroModel record = new RestaurantApprovalRequestAvroModel();
-        record.id = fieldSetFlags()[0] ? this.id : (java.lang.String) defaultValue(fields()[0]);
-        record.restaurantId = fieldSetFlags()[1] ? this.restaurantId : (java.lang.String) defaultValue(fields()[1]);
-        record.orderId = fieldSetFlags()[2] ? this.orderId : (java.lang.String) defaultValue(fields()[2]);
+        record.id = fieldSetFlags()[0] ? this.id : (java.util.UUID) defaultValue(fields()[0]);
+        record.restaurantId = fieldSetFlags()[1] ? this.restaurantId : (java.util.UUID) defaultValue(fields()[1]);
+        record.userId = fieldSetFlags()[2] ? this.userId : (java.util.UUID) defaultValue(fields()[2]);
         record.orderStatus = fieldSetFlags()[3] ? this.orderStatus : (com.ordering.platform.kafka.order.avro.model.OrderStatus) defaultValue(fields()[3]);
-        record.products = fieldSetFlags()[4] ? this.products : (java.util.List<java.lang.String>) defaultValue(fields()[4]);
-        record.createdAt = fieldSetFlags()[5] ? this.createdAt : (java.time.Instant) defaultValue(fields()[5]);
         return record;
       } catch (org.apache.avro.AvroMissingFieldException e) {
         throw e;

@@ -5,6 +5,7 @@ import com.ordering.platform.order.service.domain.entity.Order;
 import com.ordering.platform.order.service.domain.exception.OrderDomainException;
 import com.ordering.platform.order.service.domain.mapper.OrderDataMapper;
 import com.ordering.platform.order.service.domain.ports.input.service.OrderApplicationService;
+import com.ordering.platform.order.service.domain.ports.output.messaging.OrderCreatedRestaurantApprovalRequestMessagePublisher;
 import com.ordering.platform.order.service.domain.ports.output.repository.OrderRepository;
 import com.ordering.platform.order.service.domain.response.CreateOrderResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -22,12 +23,15 @@ public class OrderApplicationServiceImpl implements OrderApplicationService {
 
     private final OrderRepository orderRepository;
 
+    private final OrderCreatedRestaurantApprovalRequestMessagePublisher publisher;
+
     private final OrderDomainService orderDomainService;
 
     @Autowired
-    public OrderApplicationServiceImpl(OrderDataMapper orderDataMapper, OrderRepository orderRepository, OrderDomainService orderDomainService) {
+    public OrderApplicationServiceImpl(OrderDataMapper orderDataMapper, OrderRepository orderRepository, OrderCreatedRestaurantApprovalRequestMessagePublisher publisher, OrderDomainService orderDomainService) {
         this.orderDataMapper = orderDataMapper;
         this.orderRepository = orderRepository;
+        this.publisher = publisher;
         this.orderDomainService = orderDomainService;
     }
 
@@ -41,6 +45,7 @@ public class OrderApplicationServiceImpl implements OrderApplicationService {
             log.error("Could not create order: {}", createOrderCommand);
             throw new OrderDomainException("Could not save order: " + createOrderCommand);
         }
+        publisher.publishOrder(persistedOrder);
         log.info("Successfully created order with Id: " + order.getId());
         return orderDataMapper.orderToCreateOrderResponse(persistedOrder, createOrderCommand.toString());
     }

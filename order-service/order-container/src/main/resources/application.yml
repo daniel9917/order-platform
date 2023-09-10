@@ -2,9 +2,75 @@ server:
   port: 9696
 
 order-service:
+  restaurant-approval-request-topic-name : restaurant-approval-request
+  restaurant-approval-response-topic-name : restaurant-approval-response
   order-topic-name: order
 
 spring:
+  kafka:
+    bootstrap-servers: pkc-lzvrd.us-west4.gcp.confluent.cloud:9092
+    properties:
+#      num-of-partitions: 3
+#      replication-factor: 3
+      basic:
+        auth:
+          credentials:
+            source: USER_INFO
+          user:
+            info: ${REGISTRY_API_KEY}:${REGISTRY_SECRET}
+      sasl:
+        jaas:
+          config: org.apache.kafka.common.security.plain.PlainLoginModule required username="${CLUSTER_API_KEY}" password="${CLUSTER_SECRET}";
+        mechanism: PLAIN
+      schema:
+        registry:
+          url: https://psrc-9jzo5.us-central1.gcp.confluent.cloud
+      security:
+        protocol: SASL_SSL
+      session:
+        timeout:
+          ms: 45000
+      ssl:
+        endpoint:
+          identification:
+            algorithm: https
+    consumer:
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
+      payment-consumer-group-id: payment-topic-consumer
+      restaurant-approval-consumer-group-id: restaurant-approval-topic-consumer
+      customer-group-id: customer-topic-consumer
+      auto-offset-reset: earliest
+      specific-avro-reader-key: specific.avro.reader
+      specific-avro-reader: true
+      batch-listener: true
+      auto-startup: true
+      #  concurrency-level: 3
+      session-timeout-ms: 10000
+      heartbeat-interval-ms: 3000
+      max-poll-interval-ms: 300000
+      max-poll-records: 500
+      max-partition-fetch-bytes-default: 1048576
+      max-partition-fetch-bytes-boost-factor: 1
+      poll-timeout-ms: 150
+    producer:
+      key-serializer-class: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer-class: io.confluent.kafka.serializers.KafkaAvroSerializer
+      compression-type: snappy
+      acks: all
+      batch-size: 16384
+      batch-size-boost-factor: 100
+      buffer-memory-config: 33554432
+      linger-ms: 100
+      request-timeout-ms: 60000
+      retries: 2700000
+      retries-backoff-ms: 1000
+      retry-count: 5
+      enable-idempotence: true
+      connections:
+        max:
+          idle:
+            ms: 60000
   jpa:
     hibernate:
       ddl-auto: none
@@ -27,7 +93,7 @@ spring:
 #      schema-locations: classpath:init-schema.sql
 
 #kafka-config:
-#  bootstrap-servers: localhost:19092, localhost:29092, localhost:39092
+#  bootstrap-servers: pkc-lzvrd.us-west4.gcp.confluent.cloud:9092
 #  schema-registry-url-key: schema.registry.url
 #  schema-registry-url: http://localhost:8081
 #  num-of-partitions: 3
@@ -43,3 +109,23 @@ spring:
 #  linger-ms: 5
 #  request-timeout-ms: 60000
 #  retry-count: 5
+
+#kafka-consumer-config:
+#  key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+#  value-deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
+#  payment-consumer-group-id: payment-topic-consumer
+#  restaurant-approval-consumer-group-id: restaurant-approval-topic-consumer
+#  customer-group-id: customer-topic-consumer
+#  auto-offset-reset: earliest
+#  specific-avro-reader-key: specific.avro.reader
+#  specific-avro-reader: true
+#  batch-listener: true
+#  auto-startup: true
+##  concurrency-level: 3
+#  session-timeout-ms: 10000
+#  heartbeat-interval-ms: 3000
+#  max-poll-interval-ms: 300000
+#  max-poll-records: 500
+#  max-partition-fetch-bytes-default: 1048576
+#  max-partition-fetch-bytes-boost-factor: 1
+#  poll-timeout-ms: 150

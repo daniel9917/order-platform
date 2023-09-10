@@ -22,16 +22,15 @@
       }
     },
     {
-      "name": "orderId",
+      "name": "userId",
       "type": {
         "type": "string"
       }
     },
     {
-      "name": "createdAt",
+      "name": "orderId",
       "type": {
-        "type": "long",
-        "logicalType": "timestamp-millis"
+        "type": "string"
       }
     },
     {

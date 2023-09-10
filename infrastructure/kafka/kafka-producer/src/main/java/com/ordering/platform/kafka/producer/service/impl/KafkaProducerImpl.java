@@ -1,10 +1,12 @@
 package com.ordering.platform.kafka.producer.service.impl;
 
+import com.ordering.platform.kafka.order.avro.model.RestaurantApprovalRequestAvroModel;
 import com.ordering.platform.kafka.producer.exception.KafkaProducerException;
 import com.ordering.platform.kafka.producer.service.KafkaProducer;
 import jakarta.annotation.PreDestroy;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.avro.specific.SpecificRecordBase;
+import org.apache.kafka.clients.producer.RecordMetadata;
 import org.springframework.kafka.KafkaException;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.SendResult;
@@ -36,8 +38,34 @@ public class KafkaProducerImpl <K extends Serializable, V extends SpecificRecord
                     e.getMessage());
             throw new KafkaProducerException("Error on kafka producer with key: " + key + " and message: " + message);
         }
-//        ListenableFutureCallback<SendResult<K, V>> kafkaResultFuture = (ListenableFutureCallback<SendResult<K, V>>) kafkaTemplate.send(topicName, key, message);
-//        kafkaResultFuture.addCallback(callback);
+    }
+
+    public BiConsumer<SendResult<String, V>, Throwable>
+    getKafkaCallback(
+                    String id,
+                    String topicName,
+                    V avroModel) {
+        return (result, exception) -> {
+            if (exception == null) {
+                RecordMetadata metadata = result.getRecordMetadata();
+                log.info("Received successful response from Kafka for id: {}" +
+                                " Topic: {} Partition: {} Offset: {} Timestamp: {}",
+                        id,
+                        metadata.topic(),
+                        metadata.partition(),
+                        metadata.offset(),
+                        metadata.timestamp());
+
+                log.info("Successfully published message with Id: {}, Topic: {}, Partition: {}, Offset: {}, Timestamp");
+
+            } else {
+                log.error(
+                        "Error while sending {} with message: {} to topic {}",
+                        avroModel,
+                        avroModel.toString(),
+                        topicName );
+            }
+        };
     }
 
     @PreDestroy

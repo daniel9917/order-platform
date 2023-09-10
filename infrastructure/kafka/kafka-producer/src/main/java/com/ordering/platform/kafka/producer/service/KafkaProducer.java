@@ -9,4 +9,9 @@ import java.util.function.BiConsumer;
 
 public interface KafkaProducer <K extends Serializable, V extends SpecificRecordBase> {
     void send (String topicName, K key, V message, BiConsumer<SendResult<K, V>, Throwable> callback);
+    BiConsumer<SendResult<String, V>, Throwable>
+    getKafkaCallback(
+            String id,
+            String topicName,
+            V avroModel);
 }

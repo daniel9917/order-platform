@@ -14,22 +14,19 @@ import org.apache.avro.message.SchemaStore;
 
 @org.apache.avro.specific.AvroGenerated
 public class RestaurantApprovalResponseAvroModel extends org.apache.avro.specific.SpecificRecordBase implements org.apache.avro.specific.SpecificRecord {
-  private static final long serialVersionUID = -8466245310365414487L;
+  private static final long serialVersionUID = 5265239441114224311L;
 
 
-  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"RestaurantApprovalResponseAvroModel\",\"namespace\":\"com.ordering.platform.kafka.order.avro.model\",\"fields\":[{\"name\":\"id\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}},{\"name\":\"restaurantId\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}},{\"name\":\"orderId\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}},{\"name\":\"createdAt\",\"type\":{\"type\":\"long\",\"logicalType\":\"timestamp-millis\"}},{\"name\":\"orderApprovalStatus\",\"type\":{\"type\":\"enum\",\"name\":\"OrderApprovalStatus\",\"symbols\":[\"APPROVED\",\"REJECTED\"]}},{\"name\":\"failureMessages\",\"type\":{\"type\":\"array\",\"items\":{\"type\":\"string\",\"avro.java.string\":\"String\"}}}]}");
+  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"RestaurantApprovalResponseAvroModel\",\"namespace\":\"com.ordering.platform.kafka.order.avro.model\",\"fields\":[{\"name\":\"id\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}},{\"name\":\"restaurantId\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}},{\"name\":\"userId\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}},{\"name\":\"orderId\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}},{\"name\":\"orderApprovalStatus\",\"type\":{\"type\":\"enum\",\"name\":\"OrderApprovalStatus\",\"symbols\":[\"APPROVED\",\"REJECTED\"]}},{\"name\":\"failureMessages\",\"type\":{\"type\":\"array\",\"items\":{\"type\":\"string\",\"avro.java.string\":\"String\"}}}]}");
   public static org.apache.avro.Schema getClassSchema() { return SCHEMA$; }
 
   private static final SpecificData MODEL$ = new SpecificData();
-  static {
-    MODEL$.addLogicalTypeConversion(new org.apache.avro.data.TimeConversions.TimestampMillisConversion());
-  }
 
   private static final BinaryMessageEncoder<RestaurantApprovalResponseAvroModel> ENCODER =
-      new BinaryMessageEncoder<RestaurantApprovalResponseAvroModel>(MODEL$, SCHEMA$);
+      new BinaryMessageEncoder<>(MODEL$, SCHEMA$);
 
   private static final BinaryMessageDecoder<RestaurantApprovalResponseAvroModel> DECODER =
-      new BinaryMessageDecoder<RestaurantApprovalResponseAvroModel>(MODEL$, SCHEMA$);
+      new BinaryMessageDecoder<>(MODEL$, SCHEMA$);
 
   /**
    * Return the BinaryMessageEncoder instance used by this class.
@@ -53,7 +50,7 @@ public class RestaurantApprovalResponseAvroModel extends org.apache.avro.specifi
    * @return a BinaryMessageDecoder instance for this class backed by the given SchemaStore
    */
   public static BinaryMessageDecoder<RestaurantApprovalResponseAvroModel> createDecoder(SchemaStore resolver) {
-    return new BinaryMessageDecoder<RestaurantApprovalResponseAvroModel>(MODEL$, SCHEMA$, resolver);
+    return new BinaryMessageDecoder<>(MODEL$, SCHEMA$, resolver);
   }
 
   /**
@@ -78,8 +75,8 @@ public class RestaurantApprovalResponseAvroModel extends org.apache.avro.specifi
 
   private java.lang.String id;
   private java.lang.String restaurantId;
+  private java.lang.String userId;
   private java.lang.String orderId;
-  private java.time.Instant createdAt;
   private com.ordering.platform.kafka.order.avro.model.OrderApprovalStatus orderApprovalStatus;
   private java.util.List<java.lang.String> failureMessages;
 
@@ -94,59 +91,49 @@ public class RestaurantApprovalResponseAvroModel extends org.apache.avro.specifi
    * All-args constructor.
    * @param id The new value for id
    * @param restaurantId The new value for restaurantId
+   * @param userId The new value for userId
    * @param orderId The new value for orderId
-   * @param createdAt The new value for createdAt
    * @param orderApprovalStatus The new value for orderApprovalStatus
    * @param failureMessages The new value for failureMessages
    */
-  public RestaurantApprovalResponseAvroModel(java.lang.String id, java.lang.String restaurantId, java.lang.String orderId, java.time.Instant createdAt, com.ordering.platform.kafka.order.avro.model.OrderApprovalStatus orderApprovalStatus, java.util.List<java.lang.String> failureMessages) {
+  public RestaurantApprovalResponseAvroModel(java.lang.String id, java.lang.String restaurantId, java.lang.String userId, java.lang.String orderId, com.ordering.platform.kafka.order.avro.model.OrderApprovalStatus orderApprovalStatus, java.util.List<java.lang.String> failureMessages) {
     this.id = id;
     this.restaurantId = restaurantId;
+    this.userId = userId;
     this.orderId = orderId;
-    this.createdAt = createdAt.truncatedTo(java.time.temporal.ChronoUnit.MILLIS);
     this.orderApprovalStatus = orderApprovalStatus;
     this.failureMessages = failureMessages;
   }
 
+  @Override
   public org.apache.avro.specific.SpecificData getSpecificData() { return MODEL$; }
+
+  @Override
   public org.apache.avro.Schema getSchema() { return SCHEMA$; }
+
   // Used by DatumWriter.  Applications should not call.
+  @Override
   public java.lang.Object get(int field$) {
     switch (field$) {
     case 0: return id;
     case 1: return restaurantId;
-    case 2: return orderId;
-    case 3: return createdAt;
+    case 2: return userId;
+    case 3: return orderId;
     case 4: return orderApprovalStatus;
     case 5: return failureMessages;
     default: throw new IndexOutOfBoundsException("Invalid index: " + field$);
     }
   }
 
-  private static final org.apache.avro.Conversion<?>[] conversions =
-      new org.apache.avro.Conversion<?>[] {
-      null,
-      null,
-      null,
-      new org.apache.avro.data.TimeConversions.TimestampMillisConversion(),
-      null,
-      null,
-      null
-  };
-
-  @Override
-  public org.apache.avro.Conversion<?> getConversion(int field) {
-    return conversions[field];
-  }
-
   // Used by DatumReader.  Applications should not call.
+  @Override
   @SuppressWarnings(value="unchecked")
   public void put(int field$, java.lang.Object value$) {
     switch (field$) {
     case 0: id = value$ != null ? value$.toString() : null; break;
     case 1: restaurantId = value$ != null ? value$.toString() : null; break;
-    case 2: orderId = value$ != null ? value$.toString() : null; break;
-    case 3: createdAt = (java.time.Instant)value$; break;
+    case 2: userId = value$ != null ? value$.toString() : null; break;
+    case 3: orderId = value$ != null ? value$.toString() : null; break;
     case 4: orderApprovalStatus = (com.ordering.platform.kafka.order.avro.model.OrderApprovalStatus)value$; break;
     case 5: failureMessages = (java.util.List<java.lang.String>)value$; break;
     default: throw new IndexOutOfBoundsException("Invalid index: " + field$);
@@ -188,6 +175,23 @@ public class RestaurantApprovalResponseAvroModel extends org.apache.avro.specifi
   }
 
   /**
+   * Gets the value of the 'userId' field.
+   * @return The value of the 'userId' field.
+   */
+  public java.lang.String getUserId() {
+    return userId;
+  }
+
+
+  /**
+   * Sets the value of the 'userId' field.
+   * @param value the value to set.
+   */
+  public void setUserId(java.lang.String value) {
+    this.userId = value;
+  }
+
+  /**
    * Gets the value of the 'orderId' field.
    * @return The value of the 'orderId' field.
    */
@@ -202,23 +206,6 @@ public class RestaurantApprovalResponseAvroModel extends org.apache.avro.specifi
    */
   public void setOrderId(java.lang.String value) {
     this.orderId = value;
-  }
-
-  /**
-   * Gets the value of the 'createdAt' field.
-   * @return The value of the 'createdAt' field.
-   */
-  public java.time.Instant getCreatedAt() {
-    return createdAt;
-  }
-
-
-  /**
-   * Sets the value of the 'createdAt' field.
-   * @param value the value to set.
-   */
-  public void setCreatedAt(java.time.Instant value) {
-    this.createdAt = value.truncatedTo(java.time.temporal.ChronoUnit.MILLIS);
   }
 
   /**
@@ -298,8 +285,8 @@ public class RestaurantApprovalResponseAvroModel extends org.apache.avro.specifi
 
     private java.lang.String id;
     private java.lang.String restaurantId;
+    private java.lang.String userId;
     private java.lang.String orderId;
-    private java.time.Instant createdAt;
     private com.ordering.platform.kafka.order.avro.model.OrderApprovalStatus orderApprovalStatus;
     private java.util.List<java.lang.String> failureMessages;
 
@@ -322,12 +309,12 @@ public class RestaurantApprovalResponseAvroModel extends org.apache.avro.specifi
         this.restaurantId = data().deepCopy(fields()[1].schema(), other.restaurantId);
         fieldSetFlags()[1] = other.fieldSetFlags()[1];
       }
-      if (isValidValue(fields()[2], other.orderId)) {
-        this.orderId = data().deepCopy(fields()[2].schema(), other.orderId);
+      if (isValidValue(fields()[2], other.userId)) {
+        this.userId = data().deepCopy(fields()[2].schema(), other.userId);
         fieldSetFlags()[2] = other.fieldSetFlags()[2];
       }
-      if (isValidValue(fields()[3], other.createdAt)) {
-        this.createdAt = data().deepCopy(fields()[3].schema(), other.createdAt);
+      if (isValidValue(fields()[3], other.orderId)) {
+        this.orderId = data().deepCopy(fields()[3].schema(), other.orderId);
         fieldSetFlags()[3] = other.fieldSetFlags()[3];
       }
       if (isValidValue(fields()[4], other.orderApprovalStatus)) {
@@ -354,12 +341,12 @@ public class RestaurantApprovalResponseAvroModel extends org.apache.avro.specifi
         this.restaurantId = data().deepCopy(fields()[1].schema(), other.restaurantId);
         fieldSetFlags()[1] = true;
       }
-      if (isValidValue(fields()[2], other.orderId)) {
-        this.orderId = data().deepCopy(fields()[2].schema(), other.orderId);
+      if (isValidValue(fields()[2], other.userId)) {
+        this.userId = data().deepCopy(fields()[2].schema(), other.userId);
         fieldSetFlags()[2] = true;
       }
-      if (isValidValue(fields()[3], other.createdAt)) {
-        this.createdAt = data().deepCopy(fields()[3].schema(), other.createdAt);
+      if (isValidValue(fields()[3], other.orderId)) {
+        this.orderId = data().deepCopy(fields()[3].schema(), other.orderId);
         fieldSetFlags()[3] = true;
       }
       if (isValidValue(fields()[4], other.orderApprovalStatus)) {
@@ -453,6 +440,46 @@ public class RestaurantApprovalResponseAvroModel extends org.apache.avro.specifi
     }
 
     /**
+      * Gets the value of the 'userId' field.
+      * @return The value.
+      */
+    public java.lang.String getUserId() {
+      return userId;
+    }
+
+
+    /**
+      * Sets the value of the 'userId' field.
+      * @param value The value of 'userId'.
+      * @return This builder.
+      */
+    public com.ordering.platform.kafka.order.avro.model.RestaurantApprovalResponseAvroModel.Builder setUserId(java.lang.String value) {
+      validate(fields()[2], value);
+      this.userId = value;
+      fieldSetFlags()[2] = true;
+      return this;
+    }
+
+    /**
+      * Checks whether the 'userId' field has been set.
+      * @return True if the 'userId' field has been set, false otherwise.
+      */
+    public boolean hasUserId() {
+      return fieldSetFlags()[2];
+    }
+
+
+    /**
+      * Clears the value of the 'userId' field.
+      * @return This builder.
+      */
+    public com.ordering.platform.kafka.order.avro.model.RestaurantApprovalResponseAvroModel.Builder clearUserId() {
+      userId = null;
+      fieldSetFlags()[2] = false;
+      return this;
+    }
+
+    /**
       * Gets the value of the 'orderId' field.
       * @return The value.
       */
@@ -467,9 +494,9 @@ public class RestaurantApprovalResponseAvroModel extends org.apache.avro.specifi
       * @return This builder.
       */
     public com.ordering.platform.kafka.order.avro.model.RestaurantApprovalResponseAvroModel.Builder setOrderId(java.lang.String value) {
-      validate(fields()[2], value);
+      validate(fields()[3], value);
       this.orderId = value;
-      fieldSetFlags()[2] = true;
+      fieldSetFlags()[3] = true;
       return this;
     }
 
@@ -478,7 +505,7 @@ public class RestaurantApprovalResponseAvroModel extends org.apache.avro.specifi
       * @return True if the 'orderId' field has been set, false otherwise.
       */
     public boolean hasOrderId() {
-      return fieldSetFlags()[2];
+      return fieldSetFlags()[3];
     }
 
 
@@ -488,45 +515,6 @@ public class RestaurantApprovalResponseAvroModel extends org.apache.avro.specifi
       */
     public com.ordering.platform.kafka.order.avro.model.RestaurantApprovalResponseAvroModel.Builder clearOrderId() {
       orderId = null;
-      fieldSetFlags()[2] = false;
-      return this;
-    }
-
-    /**
-      * Gets the value of the 'createdAt' field.
-      * @return The value.
-      */
-    public java.time.Instant getCreatedAt() {
-      return createdAt;
-    }
-
-
-    /**
-      * Sets the value of the 'createdAt' field.
-      * @param value The value of 'createdAt'.
-      * @return This builder.
-      */
-    public com.ordering.platform.kafka.order.avro.model.RestaurantApprovalResponseAvroModel.Builder setCreatedAt(java.time.Instant value) {
-      validate(fields()[3], value);
-      this.createdAt = value.truncatedTo(java.time.temporal.ChronoUnit.MILLIS);
-      fieldSetFlags()[3] = true;
-      return this;
-    }
-
-    /**
-      * Checks whether the 'createdAt' field has been set.
-      * @return True if the 'createdAt' field has been set, false otherwise.
-      */
-    public boolean hasCreatedAt() {
-      return fieldSetFlags()[3];
-    }
-
-
-    /**
-      * Clears the value of the 'createdAt' field.
-      * @return This builder.
-      */
-    public com.ordering.platform.kafka.order.avro.model.RestaurantApprovalResponseAvroModel.Builder clearCreatedAt() {
       fieldSetFlags()[3] = false;
       return this;
     }
@@ -618,8 +606,8 @@ public class RestaurantApprovalResponseAvroModel extends org.apache.avro.specifi
         RestaurantApprovalResponseAvroModel record = new RestaurantApprovalResponseAvroModel();
         record.id = fieldSetFlags()[0] ? this.id : (java.lang.String) defaultValue(fields()[0]);
         record.restaurantId = fieldSetFlags()[1] ? this.restaurantId : (java.lang.String) defaultValue(fields()[1]);
-        record.orderId = fieldSetFlags()[2] ? this.orderId : (java.lang.String) defaultValue(fields()[2]);
-        record.createdAt = fieldSetFlags()[3] ? this.createdAt : (java.time.Instant) defaultValue(fields()[3]);
+        record.userId = fieldSetFlags()[2] ? this.userId : (java.lang.String) defaultValue(fields()[2]);
+        record.orderId = fieldSetFlags()[3] ? this.orderId : (java.lang.String) defaultValue(fields()[3]);
         record.orderApprovalStatus = fieldSetFlags()[4] ? this.orderApprovalStatus : (com.ordering.platform.kafka.order.avro.model.OrderApprovalStatus) defaultValue(fields()[4]);
         record.failureMessages = fieldSetFlags()[5] ? this.failureMessages : (java.util.List<java.lang.String>) defaultValue(fields()[5]);
         return record;
@@ -649,6 +637,112 @@ public class RestaurantApprovalResponseAvroModel extends org.apache.avro.specifi
     READER$.read(this, SpecificData.getDecoder(in));
   }
 
+  @Override protected boolean hasCustomCoders() { return true; }
+
+  @Override public void customEncode(org.apache.avro.io.Encoder out)
+    throws java.io.IOException
+  {
+    out.writeString(this.id);
+
+    out.writeString(this.restaurantId);
+
+    out.writeString(this.userId);
+
+    out.writeString(this.orderId);
+
+    out.writeEnum(this.orderApprovalStatus.ordinal());
+
+    long size0 = this.failureMessages.size();
+    out.writeArrayStart();
+    out.setItemCount(size0);
+    long actualSize0 = 0;
+    for (java.lang.String e0: this.failureMessages) {
+      actualSize0++;
+      out.startItem();
+      out.writeString(e0);
+    }
+    out.writeArrayEnd();
+    if (actualSize0 != size0)
+      throw new java.util.ConcurrentModificationException("Array-size written was " + size0 + ", but element count was " + actualSize0 + ".");
+
+  }
+
+  @Override public void customDecode(org.apache.avro.io.ResolvingDecoder in)
+    throws java.io.IOException
+  {
+    org.apache.avro.Schema.Field[] fieldOrder = in.readFieldOrderIfDiff();
+    if (fieldOrder == null) {
+      this.id = in.readString();
+
+      this.restaurantId = in.readString();
+
+      this.userId = in.readString();
+
+      this.orderId = in.readString();
+
+      this.orderApprovalStatus = com.ordering.platform.kafka.order.avro.model.OrderApprovalStatus.values()[in.readEnum()];
+
+      long size0 = in.readArrayStart();
+      java.util.List<java.lang.String> a0 = this.failureMessages;
+      if (a0 == null) {
+        a0 = new SpecificData.Array<java.lang.String>((int)size0, SCHEMA$.getField("failureMessages").schema());
+        this.failureMessages = a0;
+      } else a0.clear();
+      SpecificData.Array<java.lang.String> ga0 = (a0 instanceof SpecificData.Array ? (SpecificData.Array<java.lang.String>)a0 : null);
+      for ( ; 0 < size0; size0 = in.arrayNext()) {
+        for ( ; size0 != 0; size0--) {
+          java.lang.String e0 = (ga0 != null ? ga0.peek() : null);
+          e0 = in.readString();
+          a0.add(e0);
+        }
+      }
+
+    } else {
+      for (int i = 0; i < 6; i++) {
+        switch (fieldOrder[i].pos()) {
+        case 0:
+          this.id = in.readString();
+          break;
+
+        case 1:
+          this.restaurantId = in.readString();
+          break;
+
+        case 2:
+          this.userId = in.readString();
+          break;
+
+        case 3:
+          this.orderId = in.readString();
+          break;
+
+        case 4:
+          this.orderApprovalStatus = com.ordering.platform.kafka.order.avro.model.OrderApprovalStatus.values()[in.readEnum()];
+          break;
+
+        case 5:
+          long size0 = in.readArrayStart();
+          java.util.List<java.lang.String> a0 = this.failureMessages;
+          if (a0 == null) {
+            a0 = new SpecificData.Array<java.lang.String>((int)size0, SCHEMA$.getField("failureMessages").schema());
+            this.failureMessages = a0;
+          } else a0.clear();
+          SpecificData.Array<java.lang.String> ga0 = (a0 instanceof SpecificData.Array ? (SpecificData.Array<java.lang.String>)a0 : null);
+          for ( ; 0 < size0; size0 = in.arrayNext()) {
+            for ( ; size0 != 0; size0--) {
+              java.lang.String e0 = (ga0 != null ? ga0.peek() : null);
+              e0 = in.readString();
+              a0.add(e0);
+            }
+          }
+          break;
+
+        default:
+          throw new java.io.IOException("Corrupt ResolvingDecoder.");
+        }
+      }
+    }
+  }
 }
 
 
