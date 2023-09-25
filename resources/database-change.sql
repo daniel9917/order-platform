@@ -1,0 +1,1 @@
+ALTER TABLE products ADD quantity INT DEFAULT 0;

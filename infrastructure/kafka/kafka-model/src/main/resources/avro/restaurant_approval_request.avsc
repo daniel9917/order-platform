@@ -15,7 +15,6 @@
       "type": {
         "type": "string",
         "logicalType": "uuid"
-
       }
     },
     {
@@ -23,7 +22,6 @@
       "type": {
         "type": "string",
         "logicalType": "uuid"
-
       }
     },
     {
@@ -31,24 +29,38 @@
       "type": {
         "type": "enum",
         "name": "OrderStatus",
-        "symbols": ["PROCESSING", "CREATED", "COOKED"]
+        "symbols": ["PROCESSING", "CREATED", "COOKED", "CANCELLED", "APPROVED"]
+      }
+    },
+    {
+      "name" : "dishList",
+      "type": {
+        "type" : "array",
+        "items" : {
+          "name" : "Dish",
+          "type" : "record",
+          "fields": [
+            {
+              "name": "name",
+              "type": "string"
+            },
+            {
+              "name": "quantity",
+              "type": "int"
+            },
+            {
+              "name": "productList",
+              "type": {
+                "type": "array",
+                "items": {
+                  "type" : "string",
+                  "logicalType": "uuid"
+                }
+              }
+            }
+          ]
+        }
       }
     }
-//    {
-//      "name" : "dishList",
-//      "type": {
-//        "type" : "array",
-//        "items" : {
-//          "name" : "Dish",
-//          "type" : "record",
-//          "fields": [
-//            {"name": "id", "type": "string", "logicalType": "uuid"},
-//            {"name": "name", "type": "string"},
-//            {"name": "quantity", "type": "int"},
-//            {"name": "productList", "type": {"type": "array", "items": {"type" : "string", "logicalType": "uuid"}}}
-//          ]
-//        }
-//      }
-//    }
   ]
 }

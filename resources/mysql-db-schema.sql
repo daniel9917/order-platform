@@ -49,6 +49,7 @@ CREATE TABLE dishes (
 CREATE TABLE products (
     id UUID NOT NULL,
     name VARCHAR(20) NOT NULL,
+    quantity INT DEFAULT 0,
     PRIMARY KEY (id)
 );
 

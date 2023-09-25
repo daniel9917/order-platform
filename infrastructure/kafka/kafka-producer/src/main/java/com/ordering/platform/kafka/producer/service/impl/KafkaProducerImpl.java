@@ -1,6 +1,4 @@
 package com.ordering.platform.kafka.producer.service.impl;
-
-import com.ordering.platform.kafka.order.avro.model.RestaurantApprovalRequestAvroModel;
 import com.ordering.platform.kafka.producer.exception.KafkaProducerException;
 import com.ordering.platform.kafka.producer.service.KafkaProducer;
 import jakarta.annotation.PreDestroy;
@@ -11,7 +9,6 @@ import org.springframework.kafka.KafkaException;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.SendResult;
 import org.springframework.stereotype.Component;
-import org.springframework.util.concurrent.ListenableFutureCallback;
 
 import java.io.Serializable;
 import java.util.concurrent.CompletableFuture;

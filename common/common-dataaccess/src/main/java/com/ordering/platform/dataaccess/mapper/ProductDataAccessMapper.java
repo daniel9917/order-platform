@@ -11,7 +11,8 @@ public class ProductDataAccessMapper {
         return new Product(
                 productEntity.getId(),
                 productEntity.getName(),
-                ProductType.valueOf(productEntity.getType())
+                null,
+                productEntity.getQuantity()
         );
     }
 
@@ -20,6 +21,7 @@ public class ProductDataAccessMapper {
                 .id(product.getId())
                 .type(product.getProductType().toString())
                 .name(product.getName())
+                .quantity(product.getQuantity())
                 .build();
     }
 }

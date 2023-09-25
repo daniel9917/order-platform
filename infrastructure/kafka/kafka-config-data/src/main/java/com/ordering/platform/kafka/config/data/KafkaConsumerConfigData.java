@@ -23,8 +23,10 @@ public class KafkaConsumerConfigData {
     private Boolean batchListener;
     @Value("${spring.kafka.consumer.auto-startup}")
     private Boolean autoStartup;
-//    @Value("${spring.kafka.consumer.concurrency-level}")
-//    private Integer concurrencyLevel;
+    @Value("${spring.kafka.consumer.concurrency-level}")
+    private Integer concurrencyLevel;
+    @Value("${spring.kafka.consumer.retry-backoff-ms}")
+    private Integer retryBackoffMs;
     @Value("${spring.kafka.consumer.session-timeout-ms}")
     private Integer sessionTimeoutMs;
     @Value("${spring.kafka.consumer.heartbeat-interval-ms}")
@@ -39,5 +41,6 @@ public class KafkaConsumerConfigData {
     private Integer maxPartitionFetchBytesDefault;
     @Value("${spring.kafka.consumer.poll-timeout-ms}")
     private Integer maxPartitionFetchBytesBoostFactor;
+
 }
 

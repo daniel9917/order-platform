@@ -1,4 +1,4 @@
-package com.ordering.platform.order.service.domain.ports.input.service.messaging;
+package com.ordering.platform.order.service.domain.ports.input.messaging;
 
 import com.ordering.platform.order.service.domain.dto.RestaurantApprovalResponse;
 

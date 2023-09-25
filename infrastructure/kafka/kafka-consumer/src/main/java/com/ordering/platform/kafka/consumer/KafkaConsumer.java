@@ -3,7 +3,8 @@ package com.ordering.platform.kafka.consumer;
 import org.apache.avro.specific.SpecificRecordBase;
 
 import java.util.List;
+import java.util.Map;
 
 public interface KafkaConsumer <T extends SpecificRecordBase> {
-    void receive (List<T> messages, List<String> keys, List<Integer> partitions, List<Long> offsets);
+    void receive (List<T> messages, Map<String,Object> headers);
 }

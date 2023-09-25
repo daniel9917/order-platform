@@ -36,7 +36,7 @@ public class DishEntity {
 //                    CascadeType.MERGE,
 //                    CascadeType.REFRESH
             },
-            fetch = FetchType.LAZY)
+            fetch = FetchType.EAGER)
     @JoinTable(
             name = "dish_product",
             joinColumns = @JoinColumn(name = "dish_id"),

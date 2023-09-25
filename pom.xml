@@ -84,6 +84,11 @@
                 <artifactId>kafka-config-data</artifactId>
                 <version>${project.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.ordering.platform</groupId>
+                <artifactId>saga</artifactId>
+                <version>${project.version}</version>
+            </dependency>
 
         </dependencies>
 

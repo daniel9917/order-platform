@@ -1,0 +1,43 @@
+{
+  "namespace": "com.ordering.platform.kafka.order.avro.model",
+  "type": "record",
+  "name": "ProductApprovalResponseAvroModel",
+  "fields": [
+    {
+      "name": "restaurantId",
+      "type": {
+        "type": "string"
+      }
+    },
+    {
+      "name": "userId",
+      "type": {
+        "type": "string"
+      }
+    },
+    {
+      "name": "orderId",
+      "type": {
+        "type": "string"
+      }
+    },
+    {
+      "name": "orderApprovalStatus",
+      "type": {
+        "type": "enum",
+        "name": "OrderApprovalStatus",
+        "symbols": ["PROCESSING", "CREATED", "COOKED", "CANCELLED", "APPROVED"]
+      }
+    },
+    {
+      "name": "productList",
+      "type": {
+        "type": "array",
+        "items": {
+          "type" : "string",
+          "logicalType": "uuid"
+        }
+      }
+    }
+  ]
+}

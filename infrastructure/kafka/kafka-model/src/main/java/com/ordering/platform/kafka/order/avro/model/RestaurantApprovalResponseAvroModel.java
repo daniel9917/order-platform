@@ -14,13 +14,16 @@ import org.apache.avro.message.SchemaStore;
 
 @org.apache.avro.specific.AvroGenerated
 public class RestaurantApprovalResponseAvroModel extends org.apache.avro.specific.SpecificRecordBase implements org.apache.avro.specific.SpecificRecord {
-  private static final long serialVersionUID = 5265239441114224311L;
+  private static final long serialVersionUID = 1005143443216093353L;
 
 
-  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"RestaurantApprovalResponseAvroModel\",\"namespace\":\"com.ordering.platform.kafka.order.avro.model\",\"fields\":[{\"name\":\"id\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}},{\"name\":\"restaurantId\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}},{\"name\":\"userId\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}},{\"name\":\"orderId\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}},{\"name\":\"orderApprovalStatus\",\"type\":{\"type\":\"enum\",\"name\":\"OrderApprovalStatus\",\"symbols\":[\"APPROVED\",\"REJECTED\"]}},{\"name\":\"failureMessages\",\"type\":{\"type\":\"array\",\"items\":{\"type\":\"string\",\"avro.java.string\":\"String\"}}}]}");
+  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"RestaurantApprovalResponseAvroModel\",\"namespace\":\"com.ordering.platform.kafka.order.avro.model\",\"fields\":[{\"name\":\"id\",\"type\":{\"type\":\"string\",\"logicalType\":\"uuid\"}},{\"name\":\"restaurantId\",\"type\":{\"type\":\"string\",\"logicalType\":\"uuid\"}},{\"name\":\"userId\",\"type\":{\"type\":\"string\",\"logicalType\":\"uuid\"}},{\"name\":\"orderStatus\",\"type\":{\"type\":\"enum\",\"name\":\"OrderStatus\",\"symbols\":[\"PROCESSING\",\"CREATED\",\"COOKED\",\"CANCELLED\",\"APPROVED\"]}},{\"name\":\"dishList\",\"type\":{\"type\":\"array\",\"items\":{\"type\":\"record\",\"name\":\"Dish\",\"fields\":[{\"name\":\"name\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}},{\"name\":\"quantity\",\"type\":\"int\"},{\"name\":\"productList\",\"type\":{\"type\":\"array\",\"items\":{\"type\":\"string\",\"logicalType\":\"uuid\"}}}]}}}]}");
   public static org.apache.avro.Schema getClassSchema() { return SCHEMA$; }
 
   private static final SpecificData MODEL$ = new SpecificData();
+  static {
+    MODEL$.addLogicalTypeConversion(new org.apache.avro.Conversions.UUIDConversion());
+  }
 
   private static final BinaryMessageEncoder<RestaurantApprovalResponseAvroModel> ENCODER =
       new BinaryMessageEncoder<>(MODEL$, SCHEMA$);
@@ -73,12 +76,11 @@ public class RestaurantApprovalResponseAvroModel extends org.apache.avro.specifi
     return DECODER.decode(b);
   }
 
-  private java.lang.String id;
-  private java.lang.String restaurantId;
-  private java.lang.String userId;
-  private java.lang.String orderId;
-  private com.ordering.platform.kafka.order.avro.model.OrderApprovalStatus orderApprovalStatus;
-  private java.util.List<java.lang.String> failureMessages;
+  private java.util.UUID id;
+  private java.util.UUID restaurantId;
+  private java.util.UUID userId;
+  private com.ordering.platform.kafka.order.avro.model.OrderStatus orderStatus;
+  private java.util.List<com.ordering.platform.kafka.order.avro.model.Dish> dishList;
 
   /**
    * Default constructor.  Note that this does not initialize fields
@@ -92,17 +94,15 @@ public class RestaurantApprovalResponseAvroModel extends org.apache.avro.specifi
    * @param id The new value for id
    * @param restaurantId The new value for restaurantId
    * @param userId The new value for userId
-   * @param orderId The new value for orderId
-   * @param orderApprovalStatus The new value for orderApprovalStatus
-   * @param failureMessages The new value for failureMessages
+   * @param orderStatus The new value for orderStatus
+   * @param dishList The new value for dishList
    */
-  public RestaurantApprovalResponseAvroModel(java.lang.String id, java.lang.String restaurantId, java.lang.String userId, java.lang.String orderId, com.ordering.platform.kafka.order.avro.model.OrderApprovalStatus orderApprovalStatus, java.util.List<java.lang.String> failureMessages) {
+  public RestaurantApprovalResponseAvroModel(java.util.UUID id, java.util.UUID restaurantId, java.util.UUID userId, com.ordering.platform.kafka.order.avro.model.OrderStatus orderStatus, java.util.List<com.ordering.platform.kafka.order.avro.model.Dish> dishList) {
     this.id = id;
     this.restaurantId = restaurantId;
     this.userId = userId;
-    this.orderId = orderId;
-    this.orderApprovalStatus = orderApprovalStatus;
-    this.failureMessages = failureMessages;
+    this.orderStatus = orderStatus;
+    this.dishList = dishList;
   }
 
   @Override
@@ -118,11 +118,25 @@ public class RestaurantApprovalResponseAvroModel extends org.apache.avro.specifi
     case 0: return id;
     case 1: return restaurantId;
     case 2: return userId;
-    case 3: return orderId;
-    case 4: return orderApprovalStatus;
-    case 5: return failureMessages;
+    case 3: return orderStatus;
+    case 4: return dishList;
     default: throw new IndexOutOfBoundsException("Invalid index: " + field$);
     }
+  }
+
+  private static final org.apache.avro.Conversion<?>[] conversions =
+      new org.apache.avro.Conversion<?>[] {
+      new org.apache.avro.Conversions.UUIDConversion(),
+      new org.apache.avro.Conversions.UUIDConversion(),
+      new org.apache.avro.Conversions.UUIDConversion(),
+      null,
+      null,
+      null
+  };
+
+  @Override
+  public org.apache.avro.Conversion<?> getConversion(int field) {
+    return conversions[field];
   }
 
   // Used by DatumReader.  Applications should not call.
@@ -130,12 +144,11 @@ public class RestaurantApprovalResponseAvroModel extends org.apache.avro.specifi
   @SuppressWarnings(value="unchecked")
   public void put(int field$, java.lang.Object value$) {
     switch (field$) {
-    case 0: id = value$ != null ? value$.toString() : null; break;
-    case 1: restaurantId = value$ != null ? value$.toString() : null; break;
-    case 2: userId = value$ != null ? value$.toString() : null; break;
-    case 3: orderId = value$ != null ? value$.toString() : null; break;
-    case 4: orderApprovalStatus = (com.ordering.platform.kafka.order.avro.model.OrderApprovalStatus)value$; break;
-    case 5: failureMessages = (java.util.List<java.lang.String>)value$; break;
+    case 0: id = (java.util.UUID)value$; break;
+    case 1: restaurantId = (java.util.UUID)value$; break;
+    case 2: userId = (java.util.UUID)value$; break;
+    case 3: orderStatus = (com.ordering.platform.kafka.order.avro.model.OrderStatus)value$; break;
+    case 4: dishList = (java.util.List<com.ordering.platform.kafka.order.avro.model.Dish>)value$; break;
     default: throw new IndexOutOfBoundsException("Invalid index: " + field$);
     }
   }
@@ -144,7 +157,7 @@ public class RestaurantApprovalResponseAvroModel extends org.apache.avro.specifi
    * Gets the value of the 'id' field.
    * @return The value of the 'id' field.
    */
-  public java.lang.String getId() {
+  public java.util.UUID getId() {
     return id;
   }
 
@@ -153,7 +166,7 @@ public class RestaurantApprovalResponseAvroModel extends org.apache.avro.specifi
    * Sets the value of the 'id' field.
    * @param value the value to set.
    */
-  public void setId(java.lang.String value) {
+  public void setId(java.util.UUID value) {
     this.id = value;
   }
 
@@ -161,7 +174,7 @@ public class RestaurantApprovalResponseAvroModel extends org.apache.avro.specifi
    * Gets the value of the 'restaurantId' field.
    * @return The value of the 'restaurantId' field.
    */
-  public java.lang.String getRestaurantId() {
+  public java.util.UUID getRestaurantId() {
     return restaurantId;
   }
 
@@ -170,7 +183,7 @@ public class RestaurantApprovalResponseAvroModel extends org.apache.avro.specifi
    * Sets the value of the 'restaurantId' field.
    * @param value the value to set.
    */
-  public void setRestaurantId(java.lang.String value) {
+  public void setRestaurantId(java.util.UUID value) {
     this.restaurantId = value;
   }
 
@@ -178,7 +191,7 @@ public class RestaurantApprovalResponseAvroModel extends org.apache.avro.specifi
    * Gets the value of the 'userId' field.
    * @return The value of the 'userId' field.
    */
-  public java.lang.String getUserId() {
+  public java.util.UUID getUserId() {
     return userId;
   }
 
@@ -187,59 +200,42 @@ public class RestaurantApprovalResponseAvroModel extends org.apache.avro.specifi
    * Sets the value of the 'userId' field.
    * @param value the value to set.
    */
-  public void setUserId(java.lang.String value) {
+  public void setUserId(java.util.UUID value) {
     this.userId = value;
   }
 
   /**
-   * Gets the value of the 'orderId' field.
-   * @return The value of the 'orderId' field.
+   * Gets the value of the 'orderStatus' field.
+   * @return The value of the 'orderStatus' field.
    */
-  public java.lang.String getOrderId() {
-    return orderId;
+  public com.ordering.platform.kafka.order.avro.model.OrderStatus getOrderStatus() {
+    return orderStatus;
   }
 
 
   /**
-   * Sets the value of the 'orderId' field.
+   * Sets the value of the 'orderStatus' field.
    * @param value the value to set.
    */
-  public void setOrderId(java.lang.String value) {
-    this.orderId = value;
+  public void setOrderStatus(com.ordering.platform.kafka.order.avro.model.OrderStatus value) {
+    this.orderStatus = value;
   }
 
   /**
-   * Gets the value of the 'orderApprovalStatus' field.
-   * @return The value of the 'orderApprovalStatus' field.
+   * Gets the value of the 'dishList' field.
+   * @return The value of the 'dishList' field.
    */
-  public com.ordering.platform.kafka.order.avro.model.OrderApprovalStatus getOrderApprovalStatus() {
-    return orderApprovalStatus;
+  public java.util.List<com.ordering.platform.kafka.order.avro.model.Dish> getDishList() {
+    return dishList;
   }
 
 
   /**
-   * Sets the value of the 'orderApprovalStatus' field.
+   * Sets the value of the 'dishList' field.
    * @param value the value to set.
    */
-  public void setOrderApprovalStatus(com.ordering.platform.kafka.order.avro.model.OrderApprovalStatus value) {
-    this.orderApprovalStatus = value;
-  }
-
-  /**
-   * Gets the value of the 'failureMessages' field.
-   * @return The value of the 'failureMessages' field.
-   */
-  public java.util.List<java.lang.String> getFailureMessages() {
-    return failureMessages;
-  }
-
-
-  /**
-   * Sets the value of the 'failureMessages' field.
-   * @param value the value to set.
-   */
-  public void setFailureMessages(java.util.List<java.lang.String> value) {
-    this.failureMessages = value;
+  public void setDishList(java.util.List<com.ordering.platform.kafka.order.avro.model.Dish> value) {
+    this.dishList = value;
   }
 
   /**
@@ -283,12 +279,11 @@ public class RestaurantApprovalResponseAvroModel extends org.apache.avro.specifi
   public static class Builder extends org.apache.avro.specific.SpecificRecordBuilderBase<RestaurantApprovalResponseAvroModel>
     implements org.apache.avro.data.RecordBuilder<RestaurantApprovalResponseAvroModel> {
 
-    private java.lang.String id;
-    private java.lang.String restaurantId;
-    private java.lang.String userId;
-    private java.lang.String orderId;
-    private com.ordering.platform.kafka.order.avro.model.OrderApprovalStatus orderApprovalStatus;
-    private java.util.List<java.lang.String> failureMessages;
+    private java.util.UUID id;
+    private java.util.UUID restaurantId;
+    private java.util.UUID userId;
+    private com.ordering.platform.kafka.order.avro.model.OrderStatus orderStatus;
+    private java.util.List<com.ordering.platform.kafka.order.avro.model.Dish> dishList;
 
     /** Creates a new Builder */
     private Builder() {
@@ -313,17 +308,13 @@ public class RestaurantApprovalResponseAvroModel extends org.apache.avro.specifi
         this.userId = data().deepCopy(fields()[2].schema(), other.userId);
         fieldSetFlags()[2] = other.fieldSetFlags()[2];
       }
-      if (isValidValue(fields()[3], other.orderId)) {
-        this.orderId = data().deepCopy(fields()[3].schema(), other.orderId);
+      if (isValidValue(fields()[3], other.orderStatus)) {
+        this.orderStatus = data().deepCopy(fields()[3].schema(), other.orderStatus);
         fieldSetFlags()[3] = other.fieldSetFlags()[3];
       }
-      if (isValidValue(fields()[4], other.orderApprovalStatus)) {
-        this.orderApprovalStatus = data().deepCopy(fields()[4].schema(), other.orderApprovalStatus);
+      if (isValidValue(fields()[4], other.dishList)) {
+        this.dishList = data().deepCopy(fields()[4].schema(), other.dishList);
         fieldSetFlags()[4] = other.fieldSetFlags()[4];
-      }
-      if (isValidValue(fields()[5], other.failureMessages)) {
-        this.failureMessages = data().deepCopy(fields()[5].schema(), other.failureMessages);
-        fieldSetFlags()[5] = other.fieldSetFlags()[5];
       }
     }
 
@@ -345,17 +336,13 @@ public class RestaurantApprovalResponseAvroModel extends org.apache.avro.specifi
         this.userId = data().deepCopy(fields()[2].schema(), other.userId);
         fieldSetFlags()[2] = true;
       }
-      if (isValidValue(fields()[3], other.orderId)) {
-        this.orderId = data().deepCopy(fields()[3].schema(), other.orderId);
+      if (isValidValue(fields()[3], other.orderStatus)) {
+        this.orderStatus = data().deepCopy(fields()[3].schema(), other.orderStatus);
         fieldSetFlags()[3] = true;
       }
-      if (isValidValue(fields()[4], other.orderApprovalStatus)) {
-        this.orderApprovalStatus = data().deepCopy(fields()[4].schema(), other.orderApprovalStatus);
+      if (isValidValue(fields()[4], other.dishList)) {
+        this.dishList = data().deepCopy(fields()[4].schema(), other.dishList);
         fieldSetFlags()[4] = true;
-      }
-      if (isValidValue(fields()[5], other.failureMessages)) {
-        this.failureMessages = data().deepCopy(fields()[5].schema(), other.failureMessages);
-        fieldSetFlags()[5] = true;
       }
     }
 
@@ -363,7 +350,7 @@ public class RestaurantApprovalResponseAvroModel extends org.apache.avro.specifi
       * Gets the value of the 'id' field.
       * @return The value.
       */
-    public java.lang.String getId() {
+    public java.util.UUID getId() {
       return id;
     }
 
@@ -373,7 +360,7 @@ public class RestaurantApprovalResponseAvroModel extends org.apache.avro.specifi
       * @param value The value of 'id'.
       * @return This builder.
       */
-    public com.ordering.platform.kafka.order.avro.model.RestaurantApprovalResponseAvroModel.Builder setId(java.lang.String value) {
+    public com.ordering.platform.kafka.order.avro.model.RestaurantApprovalResponseAvroModel.Builder setId(java.util.UUID value) {
       validate(fields()[0], value);
       this.id = value;
       fieldSetFlags()[0] = true;
@@ -403,7 +390,7 @@ public class RestaurantApprovalResponseAvroModel extends org.apache.avro.specifi
       * Gets the value of the 'restaurantId' field.
       * @return The value.
       */
-    public java.lang.String getRestaurantId() {
+    public java.util.UUID getRestaurantId() {
       return restaurantId;
     }
 
@@ -413,7 +400,7 @@ public class RestaurantApprovalResponseAvroModel extends org.apache.avro.specifi
       * @param value The value of 'restaurantId'.
       * @return This builder.
       */
-    public com.ordering.platform.kafka.order.avro.model.RestaurantApprovalResponseAvroModel.Builder setRestaurantId(java.lang.String value) {
+    public com.ordering.platform.kafka.order.avro.model.RestaurantApprovalResponseAvroModel.Builder setRestaurantId(java.util.UUID value) {
       validate(fields()[1], value);
       this.restaurantId = value;
       fieldSetFlags()[1] = true;
@@ -443,7 +430,7 @@ public class RestaurantApprovalResponseAvroModel extends org.apache.avro.specifi
       * Gets the value of the 'userId' field.
       * @return The value.
       */
-    public java.lang.String getUserId() {
+    public java.util.UUID getUserId() {
       return userId;
     }
 
@@ -453,7 +440,7 @@ public class RestaurantApprovalResponseAvroModel extends org.apache.avro.specifi
       * @param value The value of 'userId'.
       * @return This builder.
       */
-    public com.ordering.platform.kafka.order.avro.model.RestaurantApprovalResponseAvroModel.Builder setUserId(java.lang.String value) {
+    public com.ordering.platform.kafka.order.avro.model.RestaurantApprovalResponseAvroModel.Builder setUserId(java.util.UUID value) {
       validate(fields()[2], value);
       this.userId = value;
       fieldSetFlags()[2] = true;
@@ -480,122 +467,82 @@ public class RestaurantApprovalResponseAvroModel extends org.apache.avro.specifi
     }
 
     /**
-      * Gets the value of the 'orderId' field.
+      * Gets the value of the 'orderStatus' field.
       * @return The value.
       */
-    public java.lang.String getOrderId() {
-      return orderId;
+    public com.ordering.platform.kafka.order.avro.model.OrderStatus getOrderStatus() {
+      return orderStatus;
     }
 
 
     /**
-      * Sets the value of the 'orderId' field.
-      * @param value The value of 'orderId'.
+      * Sets the value of the 'orderStatus' field.
+      * @param value The value of 'orderStatus'.
       * @return This builder.
       */
-    public com.ordering.platform.kafka.order.avro.model.RestaurantApprovalResponseAvroModel.Builder setOrderId(java.lang.String value) {
+    public com.ordering.platform.kafka.order.avro.model.RestaurantApprovalResponseAvroModel.Builder setOrderStatus(com.ordering.platform.kafka.order.avro.model.OrderStatus value) {
       validate(fields()[3], value);
-      this.orderId = value;
+      this.orderStatus = value;
       fieldSetFlags()[3] = true;
       return this;
     }
 
     /**
-      * Checks whether the 'orderId' field has been set.
-      * @return True if the 'orderId' field has been set, false otherwise.
+      * Checks whether the 'orderStatus' field has been set.
+      * @return True if the 'orderStatus' field has been set, false otherwise.
       */
-    public boolean hasOrderId() {
+    public boolean hasOrderStatus() {
       return fieldSetFlags()[3];
     }
 
 
     /**
-      * Clears the value of the 'orderId' field.
+      * Clears the value of the 'orderStatus' field.
       * @return This builder.
       */
-    public com.ordering.platform.kafka.order.avro.model.RestaurantApprovalResponseAvroModel.Builder clearOrderId() {
-      orderId = null;
+    public com.ordering.platform.kafka.order.avro.model.RestaurantApprovalResponseAvroModel.Builder clearOrderStatus() {
+      orderStatus = null;
       fieldSetFlags()[3] = false;
       return this;
     }
 
     /**
-      * Gets the value of the 'orderApprovalStatus' field.
+      * Gets the value of the 'dishList' field.
       * @return The value.
       */
-    public com.ordering.platform.kafka.order.avro.model.OrderApprovalStatus getOrderApprovalStatus() {
-      return orderApprovalStatus;
+    public java.util.List<com.ordering.platform.kafka.order.avro.model.Dish> getDishList() {
+      return dishList;
     }
 
 
     /**
-      * Sets the value of the 'orderApprovalStatus' field.
-      * @param value The value of 'orderApprovalStatus'.
+      * Sets the value of the 'dishList' field.
+      * @param value The value of 'dishList'.
       * @return This builder.
       */
-    public com.ordering.platform.kafka.order.avro.model.RestaurantApprovalResponseAvroModel.Builder setOrderApprovalStatus(com.ordering.platform.kafka.order.avro.model.OrderApprovalStatus value) {
+    public com.ordering.platform.kafka.order.avro.model.RestaurantApprovalResponseAvroModel.Builder setDishList(java.util.List<com.ordering.platform.kafka.order.avro.model.Dish> value) {
       validate(fields()[4], value);
-      this.orderApprovalStatus = value;
+      this.dishList = value;
       fieldSetFlags()[4] = true;
       return this;
     }
 
     /**
-      * Checks whether the 'orderApprovalStatus' field has been set.
-      * @return True if the 'orderApprovalStatus' field has been set, false otherwise.
+      * Checks whether the 'dishList' field has been set.
+      * @return True if the 'dishList' field has been set, false otherwise.
       */
-    public boolean hasOrderApprovalStatus() {
+    public boolean hasDishList() {
       return fieldSetFlags()[4];
     }
 
 
     /**
-      * Clears the value of the 'orderApprovalStatus' field.
+      * Clears the value of the 'dishList' field.
       * @return This builder.
       */
-    public com.ordering.platform.kafka.order.avro.model.RestaurantApprovalResponseAvroModel.Builder clearOrderApprovalStatus() {
-      orderApprovalStatus = null;
+    public com.ordering.platform.kafka.order.avro.model.RestaurantApprovalResponseAvroModel.Builder clearDishList() {
+      dishList = null;
       fieldSetFlags()[4] = false;
-      return this;
-    }
-
-    /**
-      * Gets the value of the 'failureMessages' field.
-      * @return The value.
-      */
-    public java.util.List<java.lang.String> getFailureMessages() {
-      return failureMessages;
-    }
-
-
-    /**
-      * Sets the value of the 'failureMessages' field.
-      * @param value The value of 'failureMessages'.
-      * @return This builder.
-      */
-    public com.ordering.platform.kafka.order.avro.model.RestaurantApprovalResponseAvroModel.Builder setFailureMessages(java.util.List<java.lang.String> value) {
-      validate(fields()[5], value);
-      this.failureMessages = value;
-      fieldSetFlags()[5] = true;
-      return this;
-    }
-
-    /**
-      * Checks whether the 'failureMessages' field has been set.
-      * @return True if the 'failureMessages' field has been set, false otherwise.
-      */
-    public boolean hasFailureMessages() {
-      return fieldSetFlags()[5];
-    }
-
-
-    /**
-      * Clears the value of the 'failureMessages' field.
-      * @return This builder.
-      */
-    public com.ordering.platform.kafka.order.avro.model.RestaurantApprovalResponseAvroModel.Builder clearFailureMessages() {
-      failureMessages = null;
-      fieldSetFlags()[5] = false;
       return this;
     }
 
@@ -604,12 +551,11 @@ public class RestaurantApprovalResponseAvroModel extends org.apache.avro.specifi
     public RestaurantApprovalResponseAvroModel build() {
       try {
         RestaurantApprovalResponseAvroModel record = new RestaurantApprovalResponseAvroModel();
-        record.id = fieldSetFlags()[0] ? this.id : (java.lang.String) defaultValue(fields()[0]);
-        record.restaurantId = fieldSetFlags()[1] ? this.restaurantId : (java.lang.String) defaultValue(fields()[1]);
-        record.userId = fieldSetFlags()[2] ? this.userId : (java.lang.String) defaultValue(fields()[2]);
-        record.orderId = fieldSetFlags()[3] ? this.orderId : (java.lang.String) defaultValue(fields()[3]);
-        record.orderApprovalStatus = fieldSetFlags()[4] ? this.orderApprovalStatus : (com.ordering.platform.kafka.order.avro.model.OrderApprovalStatus) defaultValue(fields()[4]);
-        record.failureMessages = fieldSetFlags()[5] ? this.failureMessages : (java.util.List<java.lang.String>) defaultValue(fields()[5]);
+        record.id = fieldSetFlags()[0] ? this.id : (java.util.UUID) defaultValue(fields()[0]);
+        record.restaurantId = fieldSetFlags()[1] ? this.restaurantId : (java.util.UUID) defaultValue(fields()[1]);
+        record.userId = fieldSetFlags()[2] ? this.userId : (java.util.UUID) defaultValue(fields()[2]);
+        record.orderStatus = fieldSetFlags()[3] ? this.orderStatus : (com.ordering.platform.kafka.order.avro.model.OrderStatus) defaultValue(fields()[3]);
+        record.dishList = fieldSetFlags()[4] ? this.dishList : (java.util.List<com.ordering.platform.kafka.order.avro.model.Dish>) defaultValue(fields()[4]);
         return record;
       } catch (org.apache.avro.AvroMissingFieldException e) {
         throw e;
@@ -637,112 +583,6 @@ public class RestaurantApprovalResponseAvroModel extends org.apache.avro.specifi
     READER$.read(this, SpecificData.getDecoder(in));
   }
 
-  @Override protected boolean hasCustomCoders() { return true; }
-
-  @Override public void customEncode(org.apache.avro.io.Encoder out)
-    throws java.io.IOException
-  {
-    out.writeString(this.id);
-
-    out.writeString(this.restaurantId);
-
-    out.writeString(this.userId);
-
-    out.writeString(this.orderId);
-
-    out.writeEnum(this.orderApprovalStatus.ordinal());
-
-    long size0 = this.failureMessages.size();
-    out.writeArrayStart();
-    out.setItemCount(size0);
-    long actualSize0 = 0;
-    for (java.lang.String e0: this.failureMessages) {
-      actualSize0++;
-      out.startItem();
-      out.writeString(e0);
-    }
-    out.writeArrayEnd();
-    if (actualSize0 != size0)
-      throw new java.util.ConcurrentModificationException("Array-size written was " + size0 + ", but element count was " + actualSize0 + ".");
-
-  }
-
-  @Override public void customDecode(org.apache.avro.io.ResolvingDecoder in)
-    throws java.io.IOException
-  {
-    org.apache.avro.Schema.Field[] fieldOrder = in.readFieldOrderIfDiff();
-    if (fieldOrder == null) {
-      this.id = in.readString();
-
-      this.restaurantId = in.readString();
-
-      this.userId = in.readString();
-
-      this.orderId = in.readString();
-
-      this.orderApprovalStatus = com.ordering.platform.kafka.order.avro.model.OrderApprovalStatus.values()[in.readEnum()];
-
-      long size0 = in.readArrayStart();
-      java.util.List<java.lang.String> a0 = this.failureMessages;
-      if (a0 == null) {
-        a0 = new SpecificData.Array<java.lang.String>((int)size0, SCHEMA$.getField("failureMessages").schema());
-        this.failureMessages = a0;
-      } else a0.clear();
-      SpecificData.Array<java.lang.String> ga0 = (a0 instanceof SpecificData.Array ? (SpecificData.Array<java.lang.String>)a0 : null);
-      for ( ; 0 < size0; size0 = in.arrayNext()) {
-        for ( ; size0 != 0; size0--) {
-          java.lang.String e0 = (ga0 != null ? ga0.peek() : null);
-          e0 = in.readString();
-          a0.add(e0);
-        }
-      }
-
-    } else {
-      for (int i = 0; i < 6; i++) {
-        switch (fieldOrder[i].pos()) {
-        case 0:
-          this.id = in.readString();
-          break;
-
-        case 1:
-          this.restaurantId = in.readString();
-          break;
-
-        case 2:
-          this.userId = in.readString();
-          break;
-
-        case 3:
-          this.orderId = in.readString();
-          break;
-
-        case 4:
-          this.orderApprovalStatus = com.ordering.platform.kafka.order.avro.model.OrderApprovalStatus.values()[in.readEnum()];
-          break;
-
-        case 5:
-          long size0 = in.readArrayStart();
-          java.util.List<java.lang.String> a0 = this.failureMessages;
-          if (a0 == null) {
-            a0 = new SpecificData.Array<java.lang.String>((int)size0, SCHEMA$.getField("failureMessages").schema());
-            this.failureMessages = a0;
-          } else a0.clear();
-          SpecificData.Array<java.lang.String> ga0 = (a0 instanceof SpecificData.Array ? (SpecificData.Array<java.lang.String>)a0 : null);
-          for ( ; 0 < size0; size0 = in.arrayNext()) {
-            for ( ; size0 != 0; size0--) {
-              java.lang.String e0 = (ga0 != null ? ga0.peek() : null);
-              e0 = in.readString();
-              a0.add(e0);
-            }
-          }
-          break;
-
-        default:
-          throw new java.io.IOException("Corrupt ResolvingDecoder.");
-        }
-      }
-    }
-  }
 }
 
 

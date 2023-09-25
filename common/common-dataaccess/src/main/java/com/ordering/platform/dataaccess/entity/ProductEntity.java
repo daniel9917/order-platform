@@ -25,6 +25,9 @@ public class ProductEntity {
     @Column(name = "name")
     private String name;
 
+    @Column(name = "quantity")
+    private Integer quantity;
+
     @Transient
 //    @Column(name = "type")
     private String type;
@@ -47,7 +50,7 @@ public class ProductEntity {
     public ProductEntity() {
     }
 
-    public ProductEntity(UUID id, String name, String type, List<DishEntity> dishList) {
+    public ProductEntity(UUID id, String name, Integer quantity, String type, List<DishEntity> dishList) {
         this.id = id;
         this.name = name;
         this.type = type;

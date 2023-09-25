@@ -14,10 +14,10 @@ import org.apache.avro.message.SchemaStore;
 
 @org.apache.avro.specific.AvroGenerated
 public class Dish extends org.apache.avro.specific.SpecificRecordBase implements org.apache.avro.specific.SpecificRecord {
-  private static final long serialVersionUID = -4823321459521612476L;
+  private static final long serialVersionUID = -4801585827311955671L;
 
 
-  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"Dish\",\"namespace\":\"com.ordering.platform.kafka.order.avro.model\",\"fields\":[{\"name\":\"id\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"},\"logicalType\":\"uuid\"},{\"name\":\"name\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}},{\"name\":\"quantity\",\"type\":\"int\"},{\"name\":\"productList\",\"type\":{\"type\":\"array\",\"items\":{\"type\":\"string\",\"logicalType\":\"uuid\"}}}]}");
+  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"Dish\",\"namespace\":\"com.ordering.platform.kafka.order.avro.model\",\"fields\":[{\"name\":\"name\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}},{\"name\":\"quantity\",\"type\":\"int\"},{\"name\":\"productList\",\"type\":{\"type\":\"array\",\"items\":{\"type\":\"string\",\"logicalType\":\"uuid\"}}}]}");
   public static org.apache.avro.Schema getClassSchema() { return SCHEMA$; }
 
   private static final SpecificData MODEL$ = new SpecificData();
@@ -76,7 +76,6 @@ public class Dish extends org.apache.avro.specific.SpecificRecordBase implements
     return DECODER.decode(b);
   }
 
-  private java.lang.String id;
   private java.lang.String name;
   private int quantity;
   private java.util.List<java.util.UUID> productList;
@@ -90,13 +89,11 @@ public class Dish extends org.apache.avro.specific.SpecificRecordBase implements
 
   /**
    * All-args constructor.
-   * @param id The new value for id
    * @param name The new value for name
    * @param quantity The new value for quantity
    * @param productList The new value for productList
    */
-  public Dish(java.lang.String id, java.lang.String name, java.lang.Integer quantity, java.util.List<java.util.UUID> productList) {
-    this.id = id;
+  public Dish(java.lang.String name, java.lang.Integer quantity, java.util.List<java.util.UUID> productList) {
     this.name = name;
     this.quantity = quantity;
     this.productList = productList;
@@ -112,10 +109,9 @@ public class Dish extends org.apache.avro.specific.SpecificRecordBase implements
   @Override
   public java.lang.Object get(int field$) {
     switch (field$) {
-    case 0: return id;
-    case 1: return name;
-    case 2: return quantity;
-    case 3: return productList;
+    case 0: return name;
+    case 1: return quantity;
+    case 2: return productList;
     default: throw new IndexOutOfBoundsException("Invalid index: " + field$);
     }
   }
@@ -125,29 +121,11 @@ public class Dish extends org.apache.avro.specific.SpecificRecordBase implements
   @SuppressWarnings(value="unchecked")
   public void put(int field$, java.lang.Object value$) {
     switch (field$) {
-    case 0: id = value$ != null ? value$.toString() : null; break;
-    case 1: name = value$ != null ? value$.toString() : null; break;
-    case 2: quantity = (java.lang.Integer)value$; break;
-    case 3: productList = (java.util.List<java.util.UUID>)value$; break;
+    case 0: name = value$ != null ? value$.toString() : null; break;
+    case 1: quantity = (java.lang.Integer)value$; break;
+    case 2: productList = (java.util.List<java.util.UUID>)value$; break;
     default: throw new IndexOutOfBoundsException("Invalid index: " + field$);
     }
-  }
-
-  /**
-   * Gets the value of the 'id' field.
-   * @return The value of the 'id' field.
-   */
-  public java.lang.String getId() {
-    return id;
-  }
-
-
-  /**
-   * Sets the value of the 'id' field.
-   * @param value the value to set.
-   */
-  public void setId(java.lang.String value) {
-    this.id = value;
   }
 
   /**
@@ -242,7 +220,6 @@ public class Dish extends org.apache.avro.specific.SpecificRecordBase implements
   public static class Builder extends org.apache.avro.specific.SpecificRecordBuilderBase<Dish>
     implements org.apache.avro.data.RecordBuilder<Dish> {
 
-    private java.lang.String id;
     private java.lang.String name;
     private int quantity;
     private java.util.List<java.util.UUID> productList;
@@ -258,21 +235,17 @@ public class Dish extends org.apache.avro.specific.SpecificRecordBase implements
      */
     private Builder(com.ordering.platform.kafka.order.avro.model.Dish.Builder other) {
       super(other);
-      if (isValidValue(fields()[0], other.id)) {
-        this.id = data().deepCopy(fields()[0].schema(), other.id);
+      if (isValidValue(fields()[0], other.name)) {
+        this.name = data().deepCopy(fields()[0].schema(), other.name);
         fieldSetFlags()[0] = other.fieldSetFlags()[0];
       }
-      if (isValidValue(fields()[1], other.name)) {
-        this.name = data().deepCopy(fields()[1].schema(), other.name);
+      if (isValidValue(fields()[1], other.quantity)) {
+        this.quantity = data().deepCopy(fields()[1].schema(), other.quantity);
         fieldSetFlags()[1] = other.fieldSetFlags()[1];
       }
-      if (isValidValue(fields()[2], other.quantity)) {
-        this.quantity = data().deepCopy(fields()[2].schema(), other.quantity);
+      if (isValidValue(fields()[2], other.productList)) {
+        this.productList = data().deepCopy(fields()[2].schema(), other.productList);
         fieldSetFlags()[2] = other.fieldSetFlags()[2];
-      }
-      if (isValidValue(fields()[3], other.productList)) {
-        this.productList = data().deepCopy(fields()[3].schema(), other.productList);
-        fieldSetFlags()[3] = other.fieldSetFlags()[3];
       }
     }
 
@@ -282,62 +255,18 @@ public class Dish extends org.apache.avro.specific.SpecificRecordBase implements
      */
     private Builder(com.ordering.platform.kafka.order.avro.model.Dish other) {
       super(SCHEMA$, MODEL$);
-      if (isValidValue(fields()[0], other.id)) {
-        this.id = data().deepCopy(fields()[0].schema(), other.id);
+      if (isValidValue(fields()[0], other.name)) {
+        this.name = data().deepCopy(fields()[0].schema(), other.name);
         fieldSetFlags()[0] = true;
       }
-      if (isValidValue(fields()[1], other.name)) {
-        this.name = data().deepCopy(fields()[1].schema(), other.name);
+      if (isValidValue(fields()[1], other.quantity)) {
+        this.quantity = data().deepCopy(fields()[1].schema(), other.quantity);
         fieldSetFlags()[1] = true;
       }
-      if (isValidValue(fields()[2], other.quantity)) {
-        this.quantity = data().deepCopy(fields()[2].schema(), other.quantity);
+      if (isValidValue(fields()[2], other.productList)) {
+        this.productList = data().deepCopy(fields()[2].schema(), other.productList);
         fieldSetFlags()[2] = true;
       }
-      if (isValidValue(fields()[3], other.productList)) {
-        this.productList = data().deepCopy(fields()[3].schema(), other.productList);
-        fieldSetFlags()[3] = true;
-      }
-    }
-
-    /**
-      * Gets the value of the 'id' field.
-      * @return The value.
-      */
-    public java.lang.String getId() {
-      return id;
-    }
-
-
-    /**
-      * Sets the value of the 'id' field.
-      * @param value The value of 'id'.
-      * @return This builder.
-      */
-    public com.ordering.platform.kafka.order.avro.model.Dish.Builder setId(java.lang.String value) {
-      validate(fields()[0], value);
-      this.id = value;
-      fieldSetFlags()[0] = true;
-      return this;
-    }
-
-    /**
-      * Checks whether the 'id' field has been set.
-      * @return True if the 'id' field has been set, false otherwise.
-      */
-    public boolean hasId() {
-      return fieldSetFlags()[0];
-    }
-
-
-    /**
-      * Clears the value of the 'id' field.
-      * @return This builder.
-      */
-    public com.ordering.platform.kafka.order.avro.model.Dish.Builder clearId() {
-      id = null;
-      fieldSetFlags()[0] = false;
-      return this;
     }
 
     /**
@@ -355,9 +284,9 @@ public class Dish extends org.apache.avro.specific.SpecificRecordBase implements
       * @return This builder.
       */
     public com.ordering.platform.kafka.order.avro.model.Dish.Builder setName(java.lang.String value) {
-      validate(fields()[1], value);
+      validate(fields()[0], value);
       this.name = value;
-      fieldSetFlags()[1] = true;
+      fieldSetFlags()[0] = true;
       return this;
     }
 
@@ -366,7 +295,7 @@ public class Dish extends org.apache.avro.specific.SpecificRecordBase implements
       * @return True if the 'name' field has been set, false otherwise.
       */
     public boolean hasName() {
-      return fieldSetFlags()[1];
+      return fieldSetFlags()[0];
     }
 
 
@@ -376,7 +305,7 @@ public class Dish extends org.apache.avro.specific.SpecificRecordBase implements
       */
     public com.ordering.platform.kafka.order.avro.model.Dish.Builder clearName() {
       name = null;
-      fieldSetFlags()[1] = false;
+      fieldSetFlags()[0] = false;
       return this;
     }
 
@@ -395,9 +324,9 @@ public class Dish extends org.apache.avro.specific.SpecificRecordBase implements
       * @return This builder.
       */
     public com.ordering.platform.kafka.order.avro.model.Dish.Builder setQuantity(int value) {
-      validate(fields()[2], value);
+      validate(fields()[1], value);
       this.quantity = value;
-      fieldSetFlags()[2] = true;
+      fieldSetFlags()[1] = true;
       return this;
     }
 
@@ -406,7 +335,7 @@ public class Dish extends org.apache.avro.specific.SpecificRecordBase implements
       * @return True if the 'quantity' field has been set, false otherwise.
       */
     public boolean hasQuantity() {
-      return fieldSetFlags()[2];
+      return fieldSetFlags()[1];
     }
 
 
@@ -415,7 +344,7 @@ public class Dish extends org.apache.avro.specific.SpecificRecordBase implements
       * @return This builder.
       */
     public com.ordering.platform.kafka.order.avro.model.Dish.Builder clearQuantity() {
-      fieldSetFlags()[2] = false;
+      fieldSetFlags()[1] = false;
       return this;
     }
 
@@ -434,9 +363,9 @@ public class Dish extends org.apache.avro.specific.SpecificRecordBase implements
       * @return This builder.
       */
     public com.ordering.platform.kafka.order.avro.model.Dish.Builder setProductList(java.util.List<java.util.UUID> value) {
-      validate(fields()[3], value);
+      validate(fields()[2], value);
       this.productList = value;
-      fieldSetFlags()[3] = true;
+      fieldSetFlags()[2] = true;
       return this;
     }
 
@@ -445,7 +374,7 @@ public class Dish extends org.apache.avro.specific.SpecificRecordBase implements
       * @return True if the 'productList' field has been set, false otherwise.
       */
     public boolean hasProductList() {
-      return fieldSetFlags()[3];
+      return fieldSetFlags()[2];
     }
 
 
@@ -455,7 +384,7 @@ public class Dish extends org.apache.avro.specific.SpecificRecordBase implements
       */
     public com.ordering.platform.kafka.order.avro.model.Dish.Builder clearProductList() {
       productList = null;
-      fieldSetFlags()[3] = false;
+      fieldSetFlags()[2] = false;
       return this;
     }
 
@@ -464,10 +393,9 @@ public class Dish extends org.apache.avro.specific.SpecificRecordBase implements
     public Dish build() {
       try {
         Dish record = new Dish();
-        record.id = fieldSetFlags()[0] ? this.id : (java.lang.String) defaultValue(fields()[0]);
-        record.name = fieldSetFlags()[1] ? this.name : (java.lang.String) defaultValue(fields()[1]);
-        record.quantity = fieldSetFlags()[2] ? this.quantity : (java.lang.Integer) defaultValue(fields()[2]);
-        record.productList = fieldSetFlags()[3] ? this.productList : (java.util.List<java.util.UUID>) defaultValue(fields()[3]);
+        record.name = fieldSetFlags()[0] ? this.name : (java.lang.String) defaultValue(fields()[0]);
+        record.quantity = fieldSetFlags()[1] ? this.quantity : (java.lang.Integer) defaultValue(fields()[1]);
+        record.productList = fieldSetFlags()[2] ? this.productList : (java.util.List<java.util.UUID>) defaultValue(fields()[2]);
         return record;
       } catch (org.apache.avro.AvroMissingFieldException e) {
         throw e;

@@ -5,7 +5,7 @@ import com.ordering.platform.order.service.domain.entity.Order;
 import com.ordering.platform.order.service.domain.exception.OrderDomainException;
 import com.ordering.platform.order.service.domain.mapper.OrderDataMapper;
 import com.ordering.platform.order.service.domain.ports.input.service.OrderApplicationService;
-import com.ordering.platform.order.service.domain.ports.output.messaging.OrderCreatedRestaurantApprovalRequestMessagePublisher;
+import com.ordering.platform.order.service.domain.ports.output.messaging.OrderCreatedProductApprovalRequestMessagePublisher;
 import com.ordering.platform.order.service.domain.ports.output.repository.OrderRepository;
 import com.ordering.platform.order.service.domain.response.CreateOrderResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -23,12 +23,12 @@ public class OrderApplicationServiceImpl implements OrderApplicationService {
 
     private final OrderRepository orderRepository;
 
-    private final OrderCreatedRestaurantApprovalRequestMessagePublisher publisher;
+    private final OrderCreatedProductApprovalRequestMessagePublisher publisher;
 
     private final OrderDomainService orderDomainService;
 
     @Autowired
-    public OrderApplicationServiceImpl(OrderDataMapper orderDataMapper, OrderRepository orderRepository, OrderCreatedRestaurantApprovalRequestMessagePublisher publisher, OrderDomainService orderDomainService) {
+    public OrderApplicationServiceImpl(OrderDataMapper orderDataMapper, OrderRepository orderRepository, OrderCreatedProductApprovalRequestMessagePublisher publisher, OrderDomainService orderDomainService) {
         this.orderDataMapper = orderDataMapper;
         this.orderRepository = orderRepository;
         this.publisher = publisher;

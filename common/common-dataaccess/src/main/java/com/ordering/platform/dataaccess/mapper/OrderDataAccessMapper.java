@@ -29,7 +29,7 @@ public class OrderDataAccessMapper {
     public OrderEntity orderToOrderEntity (Order order) {
         OrderEntity mappedOrderEntity = new OrderEntity(
                 order.getId(),
-                OrderStatus.PROCESSING.toString(),
+                order.getOrderStatus().toString(),
                 UserEntity.builder().id(order.getUserId()).build(),
                 RestaurantEntity.builder().id(order.getRestaurantId()).build(),
                 List.of()

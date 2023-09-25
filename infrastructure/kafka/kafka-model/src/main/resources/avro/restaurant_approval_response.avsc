@@ -6,47 +6,59 @@
     {
       "name": "id",
       "type": {
-        "type": "string"
+        "type": "string",
+        "logicalType": "uuid"
       }
     },
-//    {
-//      "name": "sagaId",
-//      "type": {
-//        "type": "string"
-//      }
-//    },
     {
       "name": "restaurantId",
       "type": {
-        "type": "string"
+        "type": "string",
+        "logicalType": "uuid"
       }
     },
     {
       "name": "userId",
       "type": {
-        "type": "string"
+        "type": "string",
+        "logicalType": "uuid"
       }
     },
     {
-      "name": "orderId",
-      "type": {
-        "type": "string"
-      }
-    },
-    {
-      "name": "orderApprovalStatus",
+      "name": "orderStatus",
       "type": {
         "type": "enum",
-        "name": "OrderApprovalStatus",
-        "symbols": ["APPROVED", "REJECTED"]
+        "name": "OrderStatus",
+        "symbols": ["PROCESSING", "CREATED", "COOKED", "CANCELLED", "APPROVED"]
       }
     },
     {
-      "name": "failureMessages",
+      "name" : "dishList",
       "type": {
-        "type": "array",
-        "items":{
-          "type":"string"
+        "type" : "array",
+        "items" : {
+          "name" : "Dish",
+          "type" : "record",
+          "fields": [
+            {
+              "name": "name",
+              "type": "string"
+            },
+            {
+              "name": "quantity",
+              "type": "int"
+            },
+            {
+              "name": "productList",
+              "type": {
+                "type": "array",
+                "items": {
+                  "type" : "string",
+                  "logicalType": "uuid"
+                }
+              }
+            }
+          ]
         }
       }
     }
